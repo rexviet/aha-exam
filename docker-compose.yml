@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13.1
+    restart: always
+    environment:
+      - POSTGRES_USER=aha
+      - POSTGRES_PASSWORD=123465
+      - POSTGRES_DB=aha-exam-db
+      - PGDATA=/var/lib/postgresql/data/pgdata
+
+    volumes:
+      - ./db:/var/lib/postgresql/data/pgdata
+    ports:
+      - 5432:5432
+
+volumes:
+  db-data: {}
