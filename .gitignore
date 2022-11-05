@@ -45,3 +45,4 @@ test.xlsx
 .terraform*
 infras/backend/
 cloud-functions/functions/lib/
+db/

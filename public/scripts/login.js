@@ -133,11 +133,53 @@ const onBtnFacebookClicked = () => {
     });
 }
 
+const exchangeSession = () => {
+  const storagedUser = localStorage.getItem('user');
+  if (storagedUser) {
+    const user = JSON.parse(storagedUser);
+    const token = user.stsTokenManager.accessToken;
+
+    let options = {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`
+      },
+      credentials: 'include'
+    }
+    fetch(`https://8440-13-67-78-45.ngrok.io/auth/exchange-session`, options);
+    // $.ajax({
+    //   type: 'GET',
+    //   url: `https://8440-13-67-78-45.ngrok.io/auth/exchange-session`,
+    //   headers: {"Authorization": `Bearer ${token}`},
+    //   success: function (data, status, xhr) {
+    //     return data;
+    //   },
+    // });
+  }
+}
+
+const testSession = async () => {
+  const testRs = await fetch('https://8440-13-67-78-45.ngrok.io', {credentials: 'include'});
+  console.log('testRs:', testRs);
+  // $.ajax({
+  //   type: 'GET',
+  //   url: `https://8440-13-67-78-45.ngrok.io`,
+  //   xhrFields: {
+  //     withCredentials: true
+  //  },
+  //   success: function (data, status, xhr) {
+  //     return data;
+  //   },
+  // });
+}
+
 $(document).ready(async () => {
   console.log('ready');
   $('#login-form').on('submit', onBtnLoginSubmit);
   $('#btnGoogle').on('click', onBtnGoogleClicked);
   $('#btnFacebook').on('click', onBtnFacebookClicked);
+  $('button.btnExchange').on('click', exchangeSession);
+  $('button.btnTestSession').on('click', testSession);
 });
 
 

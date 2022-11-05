@@ -7,11 +7,16 @@ import { SignUpController } from './use-cases/signup/signup.controller';
 import { SignUpProvider } from './use-cases/signup/signup.provider';
 import { VerifyTokenProvider } from './use-cases/verify-token/verify-token.provider';
 import { ConfigService, ConfigModule } from '@nestjs/config';
+import { ExchangeSessionController } from './use-cases/exchange-token/exchange-token.controller';
 
 @Global()
 @Module({
   imports: [UserModule, ConfigModule],
-  controllers: [SignUpController, ChangePasswordController],
+  controllers: [
+    SignUpController,
+    ChangePasswordController,
+    ExchangeSessionController,
+  ],
   providers: [
     VerifyTokenProvider,
     AuthRepositoryImpl,

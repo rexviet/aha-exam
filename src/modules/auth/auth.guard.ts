@@ -18,14 +18,15 @@ export class AuthGuard implements CanActivate {
     const ctx = context.switchToHttp();
     const req = ctx.getRequest();
     const token = req.headers.authorization;
-
+    const sess = req.session;
     if (!token) {
-      return true;
+      return false;
     }
 
     const decoded = await this.verifyTokenService.execute(token);
     const user = { uid: decoded.user_id, email: decoded.email };
     req.user = user;
+    sess.uid = user.uid;
     return true;
   }
 }

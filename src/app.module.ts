@@ -43,10 +43,10 @@ console.log('opts:', {
   controllers: [AppController],
   providers: [
     AppService,
-    {
-      provide: 'APP_GUARD',
-      useClass: AuthGuard,
-    },
+    // {
+    //   provide: 'APP_GUARD',
+    //   useClass: AuthGuard,
+    // },
   ],
 })
 export class AppModule {}

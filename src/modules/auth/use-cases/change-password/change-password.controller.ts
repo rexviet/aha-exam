@@ -36,7 +36,6 @@ export class ChangePasswordController {
   })
   @ApiBearerAuth()
   @Post('/change-password')
-  @UseGuards(AuthenticatedGuard)
   public async changePassword(
     @Body() body: ChangePasswordDto,
     @CurrentUser() currentUser: ICurrentUser,
