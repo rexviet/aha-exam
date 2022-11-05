@@ -1,5 +1,6 @@
 import { successResponse } from '@helpers/formatResponse';
 import { AuthGuard } from '@modules/auth/auth.guard';
+import { LocalAuthGuard } from '@modules/auth/local.auth.guard';
 import {
   Controller,
   Get,
@@ -27,7 +28,7 @@ export class ExchangeSessionController {
   })
   @ApiBearerAuth()
   @Get('/exchange-session')
-  @UseGuards(AuthGuard)
+  @UseGuards(LocalAuthGuard)
   public async changePassword(
     @Session() session: Record<string, any>,
     @Request() req,

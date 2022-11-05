@@ -8,10 +8,17 @@ import { SignUpProvider } from './use-cases/signup/signup.provider';
 import { VerifyTokenProvider } from './use-cases/verify-token/verify-token.provider';
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import { ExchangeSessionController } from './use-cases/exchange-token/exchange-token.controller';
+import { LocalStrategy } from './local.strategy';
+import { SessionSerializer } from './session.serializer';
+import { PassportModule } from '@nestjs/passport';
 
 @Global()
 @Module({
-  imports: [UserModule, ConfigModule],
+  imports: [
+    UserModule,
+    ConfigModule,
+    PassportModule.register({ session: true }),
+  ],
   controllers: [
     SignUpController,
     ChangePasswordController,
@@ -23,6 +30,14 @@ import { ExchangeSessionController } from './use-cases/exchange-token/exchange-t
     SignUpProvider,
     ChangePasswordProvider,
     ConfigService,
+    {
+      provide: 'LocalStrategySymbol',
+      useFactory: (repo: AuthRepositoryImpl): LocalStrategy => {
+        return new LocalStrategy(repo);
+      },
+      inject: [AuthRepositoryImpl],
+    },
+    SessionSerializer,
   ],
   exports: [AuthModule, VerifyTokenProvider, AuthRepositoryImpl],
 })

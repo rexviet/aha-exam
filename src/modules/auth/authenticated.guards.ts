@@ -9,8 +9,8 @@ export class AuthenticatedGuard implements CanActivate {
     // request.session.visits = request.session.visits
     //   ? request.session.visits + 1
     //   : 1;
-    // const isAuthenticated = request.isAuthenticated();
-    const isAuthenticated = !!request.session.uid;
+    const isAuthenticated = request.isAuthenticated();
+    // const isAuthenticated = !!request.session.uid;
     console.log('isAuthenticated:', isAuthenticated);
     return isAuthenticated;
   }
