@@ -17,6 +17,6 @@
       "@configs/*": ["configs/*"]
     }
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/views/**/*.hbs"],
   "exclude": ["node_modules", "src/migration"]
 }

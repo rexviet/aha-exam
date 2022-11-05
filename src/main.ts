@@ -8,12 +8,14 @@ import { ValidationPipe } from '@nestjs/common';
 import { AllExceptionsFilter } from 'filters/all-exceptions-filter';
 import session from 'express-session';
 import passport from 'passport';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     credentials: true,
     origin: '*',
+    exposedHeaders: ['Set-Cookie'],
   });
   if (process.env.NODE_ENV !== 'prod') {
     const options = new DocumentBuilder()
@@ -30,21 +32,21 @@ async function bootstrap() {
   // app.set('trust proxy', 1);
   app.use(
     session({
-      name: 'aha-cookie',
       secret: 'my-secret',
       resave: false,
-      // proxy: true,
+      proxy: true,
       saveUninitialized: false,
       cookie: {
         maxAge: 24 * 60 * 60 * 1000,
-        httpOnly: true,
+        httpOnly: false,
         signed: true,
-        secure: true,
-        domain: '.chaunguyen.dev',
-        sameSite: 'none',
+        // secure: true,
+        domain: '.coinlab.network',
+        // sameSite: 'none',
       },
     }),
   );
+  app.use(cookieParser());
   // app.use(passport.initialize());
   // app.use(passport.session());
   await app.listen(3000);

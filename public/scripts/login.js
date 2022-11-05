@@ -133,23 +133,33 @@ const onBtnFacebookClicked = () => {
     });
 }
 
-const exchangeSession = () => {
+const exchangeSession = async () => {
   const storagedUser = localStorage.getItem('user');
   if (storagedUser) {
     const user = JSON.parse(storagedUser);
     const token = user.stsTokenManager.accessToken;
-
-    let options = {
-      method: 'GET',
+    console.log('axios:', axios);
+    axios.get('https://api-dev-aha.coinlab.network/auth/exchange-session', {
       headers: {
         'Authorization': `Bearer ${token}`
-      },
-      credentials: 'include'
-    }
-    fetch(`https://8440-13-67-78-45.ngrok.io/auth/exchange-session`, options);
+      }
+    }).then(response => {
+      console.log('response.headers:', response.headers);
+    });
+    
+
+    // let options = {
+    //   method: 'GET',
+    //   headers: {
+    //     'Authorization': `Bearer ${token}`
+    //   },
+    //   credentials: 'include'
+    // }
+    // fetch(`https://api-dev-aha.coinlab.network/auth/exchange-session`, options);
+
     // $.ajax({
     //   type: 'GET',
-    //   url: `https://8440-13-67-78-45.ngrok.io/auth/exchange-session`,
+    //   url: `https://api-dev-aha.coinlab.network/auth/exchange-session`,
     //   headers: {"Authorization": `Bearer ${token}`},
     //   success: function (data, status, xhr) {
     //     return data;
@@ -159,11 +169,14 @@ const exchangeSession = () => {
 }
 
 const testSession = async () => {
-  const testRs = await fetch('https://8440-13-67-78-45.ngrok.io', {credentials: 'include'});
-  console.log('testRs:', testRs);
+  axios.get('https://api-dev-aha.coinlab.network', {
+      withCredentials: true 
+    });
+  // const testRs = await fetch('https://api-dev-aha.coinlab.network', {credentials: 'include'});
+  // console.log('testRs:', testRs);
   // $.ajax({
   //   type: 'GET',
-  //   url: `https://8440-13-67-78-45.ngrok.io`,
+  //   url: `https://api-dev-aha.coinlab.network`,
   //   xhrFields: {
   //     withCredentials: true
   //  },
