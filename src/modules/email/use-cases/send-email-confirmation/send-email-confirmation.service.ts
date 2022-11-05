@@ -12,13 +12,10 @@ export class SendEmailConfirmationService {
   ) {}
 
   public async execute(user: IUserModel): Promise<void> {
-    console.log('SendEmailConfirmationService');
-    console.log('user:', user);
-    console.log('user.emailVerified:', user.emailVerified);
     if (user.emailVerified) {
       return;
     }
-    console.log('XXX');
+
     const confirmLink = await this.generateConfirmLinkService.execute(
       user.email,
     );

@@ -59,7 +59,6 @@ export class AllExceptionsFilter implements ExceptionFilter {
         message = ErrorList[errorCode].error;
         break;
       case 'auth/wrong-password':
-        console.log('AAAA');
         errorCode = ERROR_CODE.INVALID_PASSWORD;
         statusCode = ErrorList[errorCode].code;
         message = ErrorList[errorCode].error;

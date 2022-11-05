@@ -19,13 +19,17 @@ export class QueueService {
     return this.queueRepository.publish(qMessage, topic, routingKey, options);
   }
 
+  public sendMessageToQueue<T>(qMessage: IQueueMessage<T>, queueName: string) {
+    return this.queueRepository.sendMessageToQueue(qMessage, queueName);
+  }
+
   public async consume(
-    topic: string,
     domain: string,
     handler: (message: any) => any,
+    topic: string,
     options?: IConsumerOptions,
   ): Promise<void> {
-    return this.queueRepository.consume(topic, domain, handler, options);
+    return this.queueRepository.consume(domain, handler, topic, options);
   }
 
   public uncompressMessage<T>(message: string): T {

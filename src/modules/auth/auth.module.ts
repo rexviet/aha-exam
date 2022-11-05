@@ -8,9 +8,11 @@ import { SignUpProvider } from './use-cases/signup/signup.provider';
 import { VerifyTokenProvider } from './use-cases/verify-token/verify-token.provider';
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import { ExchangeSessionController } from './use-cases/exchange-token/exchange-token.controller';
-import { LocalStrategy } from './local.strategy';
+import { BearerStrategy } from './bearer.strategy';
 import { SessionSerializer } from './session.serializer';
 import { PassportModule } from '@nestjs/passport';
+import { LogoutController } from './use-cases/logout/logout.controller';
+import { ExchangeTokenProvider } from './use-cases/exchange-token/exchange-token.provider';
 
 @Global()
 @Module({
@@ -23,17 +25,19 @@ import { PassportModule } from '@nestjs/passport';
     SignUpController,
     ChangePasswordController,
     ExchangeSessionController,
+    LogoutController,
   ],
   providers: [
     VerifyTokenProvider,
     AuthRepositoryImpl,
+    ExchangeTokenProvider,
     SignUpProvider,
     ChangePasswordProvider,
     ConfigService,
     {
-      provide: 'LocalStrategySymbol',
-      useFactory: (repo: AuthRepositoryImpl): LocalStrategy => {
-        return new LocalStrategy(repo);
+      provide: 'BearerStrategySymbol',
+      useFactory: (repo: AuthRepositoryImpl): BearerStrategy => {
+        return new BearerStrategy(repo);
       },
       inject: [AuthRepositoryImpl],
     },

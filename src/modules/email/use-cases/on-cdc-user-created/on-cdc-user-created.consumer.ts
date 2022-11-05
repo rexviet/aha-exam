@@ -32,14 +32,12 @@ export class EmailOnCdcUserCreatedConsumer {
   private async onCdcUserCreated() {
     this.logger.log('Handle CDC_USER_CREATED event');
     await this.queueService.consume(
-      TOPIC.CDC_USER_CREATED,
       this.domain,
       async (message: IMessage) => {
         const messageBody = JSON.parse(message.Body);
         const payload = this.queueService.uncompressMessage<
           IQueueMessage<IOutboxModel>
         >(messageBody.Message);
-        console.log('payload:', payload);
         try {
           await this.onUserCreatedService.execute(payload.data.payload);
         } catch (err) {
@@ -48,6 +46,7 @@ export class EmailOnCdcUserCreatedConsumer {
         }
         this.logger.log(`consume message: ${JSON.stringify(payload)}`);
       },
+      TOPIC.CDC_USER_CREATED,
       { batchSize: 10 },
     );
   }

@@ -4,12 +4,11 @@ import { Strategy } from 'passport-http-bearer';
 import { IAuthRepository } from './auth.repo';
 
 @Injectable()
-export class LocalStrategy extends PassportStrategy(Strategy) {
+export class BearerStrategy extends PassportStrategy(Strategy) {
   constructor(
-    @Inject('LocalStrategySymbol') private readonly authRepo: IAuthRepository,
+    @Inject('BearerStrategySymbol') private readonly authRepo: IAuthRepository,
   ) {
     super();
-    console.log('this.authRepo:', this.authRepo);
   }
 
   async validate(

@@ -5,3 +5,10 @@ module "email-cdc-user-created" {
   topic_arn  = aws_sns_topic.cdc-user-created.arn
   fifo_queue = false
 }
+
+module "user-authenticated-queue" {
+  source     = "./modules/sqs-without-sns"
+  q_name     = "${terraform.workspace}-user-authenticated"
+  create_dlq = var.create_dlq
+  fifo_queue = false
+}

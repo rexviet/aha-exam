@@ -39,6 +39,19 @@ export class User implements IUserModel {
   photoURL?: string;
 
   @Column({
+    type: 'smallint',
+    nullable: true,
+    default: 0,
+  })
+  no_times_logged_in?: number;
+
+  @Column({
+    type: 'int8',
+    nullable: true,
+  })
+  last_session_timestamp?: number;
+
+  @Column({
     name: 'created_at',
     type: 'timestamp',
     precision: null,

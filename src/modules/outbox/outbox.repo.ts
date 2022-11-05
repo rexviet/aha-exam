@@ -35,7 +35,6 @@ export class OutboxRepositoryImpl implements IOutboxRepository {
     messageIds: number[],
     status: OutboxStatus,
   ): Promise<void> {
-    console.log('messageIds:', messageIds);
     await this.repository
       .createQueryBuilder()
       .update(Outbox)

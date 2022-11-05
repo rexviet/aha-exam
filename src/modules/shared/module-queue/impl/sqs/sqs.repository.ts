@@ -6,6 +6,7 @@ import { PublishInput } from 'aws-sdk/clients/sns';
 import { IQueueRepository } from '../../queue.repository';
 import { IQueueMessage } from '../../queue.type';
 import { ISQSOptions, ISqSConsumerOptions } from './sqs.types';
+import { SendMessageRequest } from 'aws-sdk/clients/sqs';
 
 @Injectable()
 export class SqsRepository implements IQueueRepository {
@@ -56,13 +57,28 @@ export class SqsRepository implements IQueueRepository {
     await this.sns.publish(params).promise();
   }
 
+  public async sendMessageToQueue<T>(
+    message: IQueueMessage<T>,
+    queueName: string,
+  ): Promise<void> {
+    const queueUrl = `${this.sqsUrl}-${queueName}`;
+    const request: SendMessageRequest = {
+      MessageBody: this.compressMessage(message),
+      QueueUrl: queueUrl,
+    };
+    await this.sqs.sendMessage(request).promise();
+  }
+
   public async consume(
-    topic: string,
     domain: string,
     handler: (message: any) => any,
+    topic?: string,
     options?: ISqSConsumerOptions,
   ): Promise<void> {
-    const queueUrl = `${this.sqsUrl}-${domain}-${topic}`;
+    let queueUrl = `${this.sqsUrl}-${domain}`;
+    if (topic) {
+      queueUrl += `-${topic}`;
+    }
     if (typeof handler !== 'function') {
       throw new Error('Callback is not a function');
     }

@@ -13,7 +13,6 @@ export class PublishMessageCron {
 
   @Cron('* * * * * *', { sync: true })
   async cronPublishMessage() {
-    console.log('cronPublishMessage');
     await this.publishMessageService.execute();
   }
 }

@@ -135,11 +135,20 @@ const onBtnFacebookClicked = () => {
 
 const exchangeSession = async () => {
   const storagedUser = localStorage.getItem('user');
+  console.log('storagedUser:', storagedUser);
+  // axios.get('http://localhost:3000/auth/exchange-session', {
+  //     headers: {
+  //       // 'Authorization': `Bearer ${token}`
+  //     },
+  //     withCredentials: true,
+  //   }).then(response => {
+  //     console.log('response.headers:', response.headers);
+  //   });
   if (storagedUser) {
     const user = JSON.parse(storagedUser);
     const token = user.stsTokenManager.accessToken;
     console.log('axios:', axios);
-    axios.get('https://api-dev-aha.coinlab.network/auth/exchange-session', {
+    axios.get('http://localhost:3000/auth/exchange-session', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -169,7 +178,7 @@ const exchangeSession = async () => {
 }
 
 const testSession = async () => {
-  axios.get('https://api-dev-aha.coinlab.network', {
+  axios.get('http://localhost:3000', {
       withCredentials: true 
     });
   // const testRs = await fetch('https://api-dev-aha.coinlab.network', {credentials: 'include'});
@@ -188,6 +197,7 @@ const testSession = async () => {
 
 $(document).ready(async () => {
   console.log('ready');
+  axios.defaults.withCredentials = true;
   $('#login-form').on('submit', onBtnLoginSubmit);
   $('#btnGoogle').on('click', onBtnGoogleClicked);
   $('#btnFacebook').on('click', onBtnFacebookClicked);
@@ -203,4 +213,4 @@ const handleStorageUser = (user) => {
   // localStorage.setItem('accessToken', accessToken);
   // localStorage.setItem('refreshToken', refreshToken);
   localStorage.setItem('user', JSON.stringify(user));
-};
+}

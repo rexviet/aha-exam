@@ -1,10 +1,10 @@
 import { successResponse } from '@helpers/formatResponse';
-import { AuthGuard } from '@modules/auth/auth.guard';
-import { LocalAuthGuard } from '@modules/auth/local.auth.guard';
+import { BearerAuthGuard } from '@modules/auth/bearer.auth.guard';
 import {
   Controller,
   Get,
   HttpStatus,
+  Inject,
   Post,
   Request,
   Response,
@@ -17,27 +17,30 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-
+import { ExchangeTokenSymbol } from './exchange-token.provider';
+import { ExchangeTokenService } from './exchange-token.service';
 
 @ApiTags('auth')
 @Controller('auth')
 export class ExchangeSessionController {
+  constructor(
+    @Inject(ExchangeTokenSymbol)
+    private readonly exchangeTokenService: ExchangeTokenService,
+  ) {}
+
   @ApiOperation({ summary: 'Exchange session' })
   @ApiResponse({
     status: HttpStatus.OK,
   })
   @ApiBearerAuth()
   @Get('/exchange-session')
-  @UseGuards(LocalAuthGuard)
-  public async changePassword(
+  @UseGuards(BearerAuthGuard)
+  public async exchangeSession(
     @Session() session: Record<string, any>,
     @Request() req,
     @Response() res,
   ) {
-    session.abc = 'xyz';
-    console.log('session:', session);
-    console.log('session id:', session.id);
-
+    this.exchangeTokenService.execute(req.user);
     return successResponse(
       'Exchange session successful',
       session,

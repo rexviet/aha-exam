@@ -5,7 +5,9 @@ import { QUEUE_REPO_INJECT, SQS_OPTIONS } from './queue.constant';
 import { QueueService } from './queue.service';
 
 @Global()
-@Module({})
+@Module({
+  exports: [QueueModule, QueueService],
+})
 export class QueueModule {
   static forRootAsync(options: ISqsConnectOptions): DynamicModule {
     const asyncProviders = this.createAsyncProviders(options);

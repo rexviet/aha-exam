@@ -1,7 +1,8 @@
 import { successResponse } from '@helpers/formatResponse';
 import { CurrentUser } from '@modules/auth/auth.session';
+import { AuthenticatedGuard } from '@modules/auth/authenticated.guards';
 import { ICurrentUser } from '@modules/auth/domain/current-user.model';
-import { UpdateMyProfileParams } from '@modules/user/domain/params/update-my-profile.params';
+import { UpdateUserProfileParams } from '@modules/user/domain/params/update-user-profile.params';
 import {
   Body,
   Controller,
@@ -9,23 +10,19 @@ import {
   Inject,
   Patch,
   Response,
+  UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { UpdateUserProfileService } from '../update-user-profile/update-user-profile.service';
 import { UpdateUserDto } from './update-my-profile.dto';
 import { UpdateMyProfileSymbol } from './update-my-profile.provider';
-import { UpdateMyProfileService } from './update-my-profile.service';
 
 @ApiTags('users')
 @Controller('users')
 export class UpdateMyProfileController {
   constructor(
     @Inject(UpdateMyProfileSymbol)
-    private updateMyProfileService: UpdateMyProfileService,
+    private updateMyProfileService: UpdateUserProfileService,
   ) {}
 
   @ApiOperation({ summary: 'Update my profile' })
@@ -33,13 +30,13 @@ export class UpdateMyProfileController {
     status: HttpStatus.OK,
   })
   @Patch('me')
-  @ApiBearerAuth()
+  @UseGuards(AuthenticatedGuard)
   public async updateMyProfile(
     @Body() body: UpdateUserDto,
     @CurrentUser() currentUser: ICurrentUser,
     @Response() res,
   ) {
-    const params = new UpdateMyProfileParams(currentUser.uid, body.name);
+    const params = new UpdateUserProfileParams(currentUser.uid, body.name);
     const user = await this.updateMyProfileService.execute(params);
 
     return successResponse(

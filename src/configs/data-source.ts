@@ -7,7 +7,7 @@ import * as path from 'path';
 const _path = path.resolve(
   __dirname + '/../modules/**/domain/*.entity{.ts,.js}',
 );
-console.log('_path:', _path);
+
 export const AppDataSource = new DataSource({
   type: 'postgres',
   host: process.env.TYPEORM_HOST,
@@ -21,5 +21,3 @@ export const AppDataSource = new DataSource({
   schema: process.env.TYPEORM_SCHEMA,
   logging: process.env.TYPEORM_LOGGING === 'true',
 });
-console.log('AppDataSource:', AppDataSource.options);
-// module.exports = AppDataSource;

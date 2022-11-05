@@ -9,12 +9,10 @@ export class EmailOnCdcUserCreatedService {
   ) {}
 
   public async execute(user: IUserModel): Promise<void> {
-    console.log('user:', user);
-    console.log('user.emailVerified:', user.emailVerified);
     if (user.emailVerified) {
       return;
     }
 
-    // return this.sendEmailConfirmService.execute(user);
+    return this.sendEmailConfirmService.execute(user);
   }
 }

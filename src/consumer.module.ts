@@ -5,24 +5,25 @@ import * as path from 'path';
 import { OutboxModule } from '@modules/outbox/outbox.module';
 import { QueueModule, ISQSOptions } from '@modules/shared/module-queue';
 import { EmailConsumerModule } from '@modules/email/email.module';
+import { UserConsumerModule } from '@modules/user/user.module';
 
 const _path = path.resolve(__dirname + '/modules/**/domain/*.entity{.ts,.js}');
 
 @Module({
   imports: [
-    // TypeOrmModule.forRoot({
-    //   type: 'postgres',
-    //   host: process.env.TYPEORM_HOST,
-    //   port: Number(process.env.TYPEORM_PORT),
-    //   username: process.env.TYPEORM_USERNAME,
-    //   password: process.env.TYPEORM_PASSWORD,
-    //   database: process.env.TYPEORM_DATABASE,
-    //   entities: [_path],
-    //   synchronize: false,
-    //   migrations: ['dist/migration/*js'],
-    //   schema: process.env.TYPEORM_SCHEMA,
-    //   logging: process.env.TYPEORM_LOGGING === 'true',
-    // }),
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: process.env.TYPEORM_HOST,
+      port: Number(process.env.TYPEORM_PORT),
+      username: process.env.TYPEORM_USERNAME,
+      password: process.env.TYPEORM_PASSWORD,
+      database: process.env.TYPEORM_DATABASE,
+      entities: [_path],
+      synchronize: false,
+      migrations: ['dist/migration/*js'],
+      schema: process.env.TYPEORM_SCHEMA,
+      logging: process.env.TYPEORM_LOGGING === 'true',
+    }),
     ConfigModule.forRoot({ isGlobal: true }),
     QueueModule.forRootAsync({
       imports: [ConfigModule],
@@ -44,6 +45,7 @@ const _path = path.resolve(__dirname + '/modules/**/domain/*.entity{.ts,.js}');
       inject: [ConfigService],
     }),
     EmailConsumerModule,
+    UserConsumerModule,
   ],
 })
 export class AppConsumerModule {}

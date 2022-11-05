@@ -12,12 +12,7 @@ import {
   Response,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from './change-password.dto';
 import { ChangePasswordSymbol } from './change-password.provider';
 import { ChangePasswordService } from './change-password.service';
@@ -34,7 +29,7 @@ export class ChangePasswordController {
   @ApiResponse({
     status: HttpStatus.OK,
   })
-  @ApiBearerAuth()
+  @UseGuards(AuthenticatedGuard)
   @Post('/change-password')
   public async changePassword(
     @Body() body: ChangePasswordDto,

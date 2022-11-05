@@ -8,6 +8,12 @@ import { pack, unpack } from 'jsonpack';
 @Injectable()
 export class RabbitRepository implements IQueueRepository {
   constructor(private readonly connection: Connection) {}
+  sendMessageToQueue<T>(
+    message: IQueueMessage<T>,
+    queueName: string,
+  ): void | Promise<void> {
+    throw new Error('Method not implemented.');
+  }
 
   private declareExchange(
     name: string,
@@ -47,9 +53,9 @@ export class RabbitRepository implements IQueueRepository {
     return exchange.send(rabbitMessage, routingKey);
   }
   public async consume(
-    topic: string,
     domain: string,
     handler: (message: any) => any,
+    topic: string,
   ): Promise<void> {
     const exchange = this.declareExchange(topic);
     const queue = await this.declareQueue(`${domain}-${topic}`, exchange);

@@ -4,14 +4,17 @@ import { IUserModel } from './domain/user.model';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Outbox } from '@modules/outbox/domain/outbox.entity';
-import { UpdateMyProfilePayload } from './domain/payloads/update-my-profile.payload';
+import { UpdateUserProfilePayload } from './domain/payloads/update-user-profile.payload';
+import { Injectable } from '@nestjs/common';
 
 export interface IUserRepository {
   createUser(payload: CreateUserPayload): Promise<IUserModel>;
   getUserByUid(uid: string): Promise<IUserModel>;
-  updateUserProfile(payload: UpdateMyProfilePayload): Promise<void>;
+  updateUserProfile(payload: UpdateUserProfilePayload): Promise<void>;
+  incNoTimesLoggedIn(uid: string): Promise<void>;
 }
 
+@Injectable()
 export class UserRepositoryImpl implements IUserRepository {
   constructor(
     @InjectRepository(User)
@@ -52,13 +55,27 @@ export class UserRepositoryImpl implements IUserRepository {
   }
 
   public async updateUserProfile(
-    payload: UpdateMyProfilePayload,
+    payload: UpdateUserProfilePayload,
   ): Promise<void> {
     await this.repository
       .createQueryBuilder()
       .update(User)
-      .set({ displayName: payload.name })
+      .set({
+        displayName: payload.name,
+        last_session_timestamp: payload.last_session_timestamp,
+      })
       .where('uid = :uid', { uid: payload.uid })
+      .execute();
+  }
+
+  public async incNoTimesLoggedIn(uid: string): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update(User)
+      .set({
+        no_times_logged_in: () => `no_times_logged_in + 1`,
+      })
+      .where('uid = :uid', { uid })
       .execute();
   }
 }

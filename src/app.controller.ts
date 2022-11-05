@@ -1,4 +1,6 @@
+import { CurrentUser } from '@modules/auth/auth.session';
 import { AuthenticatedGuard } from '@modules/auth/authenticated.guards';
+import { ICurrentUser } from '@modules/auth/domain/current-user.model';
 import { Controller, Get, Request, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 
@@ -8,8 +10,7 @@ export class AppController {
 
   @Get()
   @UseGuards(AuthenticatedGuard)
-  getHello(@Request() req): string {
-    console.log('req.user:', req.user);
+  getHello(@CurrentUser() currentUser: ICurrentUser, @Request() req): string {
     return this.appService.getHello();
   }
 }

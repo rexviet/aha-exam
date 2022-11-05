@@ -14,18 +14,21 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors({
     credentials: true,
-    origin: '*',
-    exposedHeaders: ['Set-Cookie'],
+    origin: process.env.CORS_ORIGIN,
   });
   if (process.env.NODE_ENV !== 'prod') {
     const options = new DocumentBuilder()
       .setTitle('API Document')
-      .setDescription('Pandora')
+      .setDescription('Aha Exam')
       .setVersion(constant.swagger.version)
       .addBearerAuth({ in: 'header', type: 'http' })
       .build();
     const document = SwaggerModule.createDocument(app, options);
-    SwaggerModule.setup(constant.swagger.pathName, app, document);
+    SwaggerModule.setup(constant.swagger.pathName, app, document, {
+      swaggerOptions: {
+        withCredentials: true,
+      },
+    });
   }
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new AllExceptionsFilter());
@@ -41,8 +44,8 @@ async function bootstrap() {
         httpOnly: false,
         signed: true,
         // secure: true,
-        domain: '.coinlab.network',
-        // sameSite: 'none',
+        domain: process.env.SESSION_DOMAIN,
+        sameSite: 'lax',
       },
     }),
   );
