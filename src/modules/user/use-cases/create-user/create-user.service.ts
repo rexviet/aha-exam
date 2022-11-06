@@ -9,6 +9,10 @@ export class CreateUserService {
   constructor(private readonly repository: IUserRepository) {}
 
   public async execute(params: CreateUserParams): Promise<IUserModel> {
+    const user = await this.repository.getUserByUid(params.uid);
+    if (user) {
+      return user;
+    }
     const payload = new CreateUserPayload(
       params.uid,
       params.emailVerified,

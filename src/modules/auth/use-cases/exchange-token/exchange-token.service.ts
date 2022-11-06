@@ -20,7 +20,7 @@ export class ExchangeTokenService {
     if (!user) {
       const createUserParams = new CreateUserParams(
         params.firebaseUser.uid,
-        params.firebaseUser.emailVerified,
+        true,
         params.firebaseUser.email,
         params.firebaseUser.displayName,
         params.firebaseUser.photoURL,
