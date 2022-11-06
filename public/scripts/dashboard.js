@@ -7,6 +7,9 @@ $(document).ready(async () => {
         $('h5.name').text(user.displayName);
         $('p.email').text(user.email);
         $('img').attr('src', user.photoURL);
+        $('button.btn-edit-profile').on('click', () => {
+            location.href = 'profile.html';
+        })
     }
     
 });

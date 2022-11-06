@@ -8,9 +8,11 @@ const updateProfile = async () => {
     const storagedUser = localStorage.getItem('user');
     const user = JSON.parse(storagedUser);
     user.displayName = newName;
-    localStorageAsync.set('user', JSON.stringify(user)).then(() => {
-        location.href = 'dashboard.html';
-      })
+    localStorageAsync.set('user', JSON.stringify(user)).then(backToDashboard);
+}
+
+const backToDashboard = () => {
+    location.href = 'dashboard.html';;
 }
 
 $(document).ready(async () => {
@@ -25,6 +27,7 @@ $(document).ready(async () => {
         $('img').attr('src', user.photoURL);
         $('div input').attr('value', user.displayName);
         $('button.btn-save-profile').on('click', updateProfile);
+        $('button.btn-cancel').on('click', backToDashboard);
     }
     
 });
