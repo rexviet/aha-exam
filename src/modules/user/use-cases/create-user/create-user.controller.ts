@@ -28,6 +28,7 @@ export class CreateUserController {
   @Post('')
   public async createUser(@Body() body: CreateUserDto, @Response() res) {
     const params = new CreateUserParams(
+      'password',
       body.uid,
       body.emailVerified,
       body.email,

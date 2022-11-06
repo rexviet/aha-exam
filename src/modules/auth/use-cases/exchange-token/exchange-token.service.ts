@@ -19,11 +19,12 @@ export class ExchangeTokenService {
     let user = await this.getUserByUidService.execute(params.firebaseUser.uid);
     if (!user) {
       const createUserParams = new CreateUserParams(
+        params.firebaseUser.firebase.sign_in_provider,
         params.firebaseUser.uid,
         true,
         params.firebaseUser.email,
-        params.firebaseUser.displayName || params.firebaseUser.name,
-        params.firebaseUser.photoURL || params.firebaseUser.picture,
+        params.firebaseUser.name,
+        params.firebaseUser.picture,
       );
       user = await this.createUserService.execute(createUserParams);
     }

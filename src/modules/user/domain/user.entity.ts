@@ -6,6 +6,12 @@ export class User implements IUserModel {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({
+    type: 'varchar',
+    nullable: false,
+  })
+  provider: string;
+
   @Index('idx_user_uid', { unique: true })
   @Column({
     type: 'varchar',

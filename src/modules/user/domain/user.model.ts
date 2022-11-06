@@ -1,4 +1,5 @@
 export interface IUserModel {
+  readonly provider: string;
   readonly uid: string;
   readonly email?: string;
   readonly emailVerified: boolean;

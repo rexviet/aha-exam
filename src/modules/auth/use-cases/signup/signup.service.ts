@@ -23,7 +23,9 @@ export class SignUpService {
       params.password,
     );
     console.log('user:', user.toJSON());
+
     const createUserParams = new CreateUserParams(
+      user.providerData[0].providerId,
       user.uid,
       user.emailVerified,
       user.email,
