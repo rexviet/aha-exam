@@ -14,6 +14,7 @@ export class CreateUserService {
       return user;
     }
     const payload = new CreateUserPayload(
+      params.provider,
       params.uid,
       params.emailVerified,
       params.email,

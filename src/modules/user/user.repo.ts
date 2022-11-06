@@ -23,6 +23,7 @@ export class UserRepositoryImpl implements IUserRepository {
 
   public async createUser(payload: CreateUserPayload): Promise<IUserModel> {
     let user = new User();
+    user.provider = payload.provider;
     user.uid = payload.uid;
     user.emailVerified = payload.emailVerified;
     user.email = payload.email;
