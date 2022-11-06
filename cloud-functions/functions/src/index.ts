@@ -33,16 +33,17 @@ export const helloWorld = functions.auth.user()
       }
 
       const body = {
+        provider: user.providerData[0].providerId,
         uid: user.uid,
         emailVerified,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
       };
-      try {
-        await axios.post("https://api-dev-aha.coinlab.network/users", body);
-      } catch (err) {
-        console.error("err cmnr:", err);
-        functions.logger.error("err cmnr!", err);
-      }
+      // try {
+      //   await axios.post("https://api-dev-aha.coinlab.network/users", body);
+      // } catch (err) {
+      //   console.error("err cmnr:", err);
+      //   functions.logger.error("err cmnr!", err);
+      // }
     });

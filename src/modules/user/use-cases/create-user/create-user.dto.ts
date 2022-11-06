@@ -15,6 +15,11 @@ export class CreateUserDto {
   uid: string;
 
   @ApiProperty()
+  @IsDefined()
+  @IsString()
+  provider: string;
+
+  @ApiProperty()
   @IsBoolean()
   emailVerified?: boolean;
 

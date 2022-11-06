@@ -23,12 +23,14 @@ export class ChangePasswordService {
       throw new AppError(ERROR_CODE.USER_NOT_EXISTS);
     }
 
-    const verified = await this.repository.verifyPassword(
-      user.email,
-      params.currentPassword,
-    );
-    if (!verified) {
-      throw new AppError(ERROR_CODE.INVALID_PASSWORD);
+    if (user.provider === 'password') {
+      const verified = await this.repository.verifyPassword(
+        user.email,
+        params.currentPassword,
+      );
+      if (!verified) {
+        throw new AppError(ERROR_CODE.INVALID_PASSWORD);
+      }
     }
 
     const payload = new ChangePasswordPayload(user.uid, params.newPassword);
