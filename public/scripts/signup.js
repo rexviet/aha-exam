@@ -18,7 +18,7 @@ const signupWithPassword = async (e) => {
     alert("Password not match");
   }
 
-  const response = await axios.post('http://localhost:3000/auth/signup', {
+  const response = await axios.post('https://api-dev-aha.coinlab.network/auth/signup', {
     email,
     password,
     confirmPassword,
@@ -161,7 +161,7 @@ const exchangeSession = async (firebaseUser) => {
 
   const token = firebaseUser.stsTokenManager.accessToken;
   console.log('axios:', axios);
-  const response = await axios.get('http://localhost:3000/auth/exchange-session', {
+  const response = await axios.get('https://api-dev-aha.coinlab.network/auth/exchange-session', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
