@@ -19,6 +19,7 @@ export class UpdateUserProfileService {
       user.uid,
       params.name || user.displayName,
       params.last_session_timestamp || user.last_session_timestamp,
+      params.increaseNoLoggedIn,
     );
     return this.repository.updateUserProfile(payload);
   }

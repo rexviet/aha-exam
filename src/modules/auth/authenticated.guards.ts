@@ -12,7 +12,12 @@ export class AuthenticatedGuard implements CanActivate {
     const isAuthenticated = request.isAuthenticated();
     if (isAuthenticated) {
       const qMessage: IQueueMessage<IUserAuthenticatedModel> = {
-        data: { uid: request.user.uid, timestamp: Date.now() },
+        data: {
+          uid: request.user.uid,
+          method: request.method,
+          path: request.originalUrl.split('?')[0],
+          timestamp: Date.now(),
+        },
       };
       this.queueService.sendMessageToQueue(qMessage, USER_AUTHENTICATED_QUEUE);
     }

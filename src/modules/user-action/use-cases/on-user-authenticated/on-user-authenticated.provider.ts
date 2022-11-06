@@ -1,15 +1,15 @@
-import { UserRepositoryImpl } from '@modules/user/user.repo';
+import { UserActionRepositoryImpl } from '@modules/user-action/user-action.repo';
 import { Provider } from '@nestjs/common';
-import { UpdateUserProfileService } from '../update-user-profile/update-user-profile.service';
+import { CreateUserActionService } from '../create-user-action/create-user-action.service';
 import { OnUserAuthenticatedService } from './on-user-authenticated.service';
 
 export const OnUserAuthenticatedSymbol = Symbol('OnUserAuthenticatedSymbol');
 
 export const OnUserAuthenticatedProvider: Provider = {
   provide: OnUserAuthenticatedSymbol,
-  useFactory: (repo: UserRepositoryImpl): OnUserAuthenticatedService => {
-    const updateUserService = new UpdateUserProfileService(repo);
+  useFactory: (repo: UserActionRepositoryImpl): OnUserAuthenticatedService => {
+    const updateUserService = new CreateUserActionService(repo);
     return new OnUserAuthenticatedService(updateUserService);
   },
-  inject: [UserRepositoryImpl],
+  inject: [UserActionRepositoryImpl],
 };

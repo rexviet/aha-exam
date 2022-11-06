@@ -8,9 +8,9 @@ import { Controller, Inject, Injectable, Logger } from '@nestjs/common';
 import { OnUserAuthenticatedSymbol } from './on-user-authenticated.provider';
 import { OnUserAuthenticatedService } from './on-user-authenticated.service';
 
-@Controller('on-user-authenticated-consumer')
+@Controller('user-action-on-user-authenticated-consumer')
 @Injectable()
-export class OnUserAuthenticatedConsumer {
+export class UserActionOnUserAuthenticatedConsumer {
   private readonly domain: string;
   private readonly logger: Logger;
 
@@ -20,7 +20,7 @@ export class OnUserAuthenticatedConsumer {
     private readonly queueService: QueueService,
   ) {
     this.domain = 'user-authenticated';
-    this.logger = new Logger('OnUserAuthenticatedConsumer');
+    this.logger = new Logger('UserActionOnUserAuthenticatedConsumer');
   }
 
   onModuleInit() {
@@ -39,10 +39,12 @@ export class OnUserAuthenticatedConsumer {
         try {
           await this.onUserCreatedService.execute({
             uid: payload.data.uid,
+            method: payload.data.method,
+            path: payload.data.path,
             timestamp: Number(payload.data.timestamp),
           });
         } catch (err) {
-          console.error('onCdcUserCreated err:', err);
+          console.error('onCdcUserAuthenticated err:', err);
           throw err;
         }
         this.logger.log(`consume message: ${JSON.stringify(payload)}`);

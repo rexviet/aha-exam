@@ -1,5 +1,6 @@
 import { successResponse } from '@helpers/formatResponse';
 import { BearerAuthGuard } from '@modules/auth/bearer.auth.guard';
+import { ExchangeSessionParams } from '@modules/auth/domain/params/exchange-token.params';
 import {
   Controller,
   Get,
@@ -40,10 +41,15 @@ export class ExchangeSessionController {
     @Request() req,
     @Response() res,
   ) {
-    this.exchangeTokenService.execute(req.user);
+    const params = new ExchangeSessionParams(
+      req.user.uid,
+      req.method,
+      req.originalUrl.split('?')[0],
+    );
+    const user = await this.exchangeTokenService.execute(params);
     return successResponse(
       'Exchange session successful',
-      session,
+      user,
       res,
       HttpStatus.OK,
     );

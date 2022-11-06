@@ -13,6 +13,7 @@ import { SessionSerializer } from './session.serializer';
 import { PassportModule } from '@nestjs/passport';
 import { LogoutController } from './use-cases/logout/logout.controller';
 import { ExchangeTokenProvider } from './use-cases/exchange-token/exchange-token.provider';
+import { UserActionModule } from '@modules/user-action/user-action.module';
 
 @Global()
 @Module({
@@ -20,6 +21,7 @@ import { ExchangeTokenProvider } from './use-cases/exchange-token/exchange-token
     UserModule,
     ConfigModule,
     PassportModule.register({ session: true }),
+    UserActionModule,
   ],
   controllers: [
     SignUpController,

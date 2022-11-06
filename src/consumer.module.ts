@@ -2,9 +2,9 @@ import { Logger, Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
-import { OutboxModule } from '@modules/outbox/outbox.module';
 import { QueueModule, ISQSOptions } from '@modules/shared/module-queue';
 import { EmailConsumerModule } from '@modules/email/email.module';
+import { UserActionConsumerModule } from '@modules/user-action/user-action.module';
 import { UserConsumerModule } from '@modules/user/user.module';
 
 const _path = path.resolve(__dirname + '/modules/**/domain/*.entity{.ts,.js}');
@@ -45,6 +45,7 @@ const _path = path.resolve(__dirname + '/modules/**/domain/*.entity{.ts,.js}');
       inject: [ConfigService],
     }),
     EmailConsumerModule,
+    UserActionConsumerModule,
     UserConsumerModule,
   ],
 })

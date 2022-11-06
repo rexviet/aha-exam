@@ -1,4 +1,4 @@
-export interface IUserAuthenticatedModel {
+export interface IUserActionModel {
   readonly uid: string;
   readonly method: string;
   readonly path: string;

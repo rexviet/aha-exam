@@ -1,0 +1,22 @@
+.profile_photo {
+    margin-left: 10px;
+  }
+  
+  .profile_photo img {
+    border-radius: 50%;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border: 1px solid #aaa;
+    width: 70px;
+    height: 70px;
+  }
+  
+  
+  /*.cover_photo {
+     height: 110px;
+  }*/
+  
+  .profile_photo {
+    display: flex;
+    align-items: center
+  }

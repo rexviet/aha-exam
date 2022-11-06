@@ -133,48 +133,17 @@ const onBtnFacebookClicked = () => {
     });
 }
 
-const exchangeSession = async () => {
-  const storagedUser = localStorage.getItem('user');
-  console.log('storagedUser:', storagedUser);
-  // axios.get('http://localhost:3000/auth/exchange-session', {
-  //     headers: {
-  //       // 'Authorization': `Bearer ${token}`
-  //     },
-  //     withCredentials: true,
-  //   }).then(response => {
-  //     console.log('response.headers:', response.headers);
-  //   });
-  if (storagedUser) {
-    const user = JSON.parse(storagedUser);
-    const token = user.stsTokenManager.accessToken;
-    console.log('axios:', axios);
-    axios.get('http://localhost:3000/auth/exchange-session', {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    }).then(response => {
-      console.log('response.headers:', response.headers);
-    });
-    
+const exchangeSession = async (firebaseUser) => {
+  console.log('firebaseUser:', firebaseUser);
 
-    // let options = {
-    //   method: 'GET',
-    //   headers: {
-    //     'Authorization': `Bearer ${token}`
-    //   },
-    //   credentials: 'include'
-    // }
-    // fetch(`https://api-dev-aha.coinlab.network/auth/exchange-session`, options);
-
-    // $.ajax({
-    //   type: 'GET',
-    //   url: `https://api-dev-aha.coinlab.network/auth/exchange-session`,
-    //   headers: {"Authorization": `Bearer ${token}`},
-    //   success: function (data, status, xhr) {
-    //     return data;
-    //   },
-    // });
-  }
+  const token = firebaseUser.stsTokenManager.accessToken;
+  console.log('axios:', axios);
+  const response = await axios.get('http://localhost:3000/auth/exchange-session', {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  });
+  return response.data.data;
 }
 
 const testSession = async () => {
@@ -206,11 +175,28 @@ $(document).ready(async () => {
 });
 
 
-const handleStorageUser = (user) => {
-  console.log('user:', user);
+const localStorageAsync = {
+  set: function (key, value) {
+      return Promise.resolve().then(function () {
+          localStorage.setItem(key, value);
+      });
+  },
+  get: function (key) {
+      return Promise.resolve().then(function () {
+          return localStorage.getItem(key);
+      });
+  }
+};
+
+const handleStorageUser = async (firebaseUser) => {
+  console.log('firebaseUser:', firebaseUser);
+  const user = await exchangeSession(firebaseUser);
+  localStorageAsync.set('user', JSON.stringify(user)).then(() => {
+    location.href = 'dashboard.html';
+  })
   // const accessToken = user.stsTokenManager.accessToken;
   // const refreshToken = user.stsTokenManager.refreshToken;
   // localStorage.setItem('accessToken', accessToken);
   // localStorage.setItem('refreshToken', refreshToken);
-  localStorage.setItem('user', JSON.stringify(user));
+  // localStorage.setItem('user', JSON.stringify(user));
 }

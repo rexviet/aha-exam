@@ -57,15 +57,21 @@ export class UserRepositoryImpl implements IUserRepository {
   public async updateUserProfile(
     payload: UpdateUserProfilePayload,
   ): Promise<void> {
-    await this.repository
-      .createQueryBuilder()
-      .update(User)
-      .set({
+    this.repository.manager.transaction(async (entityManager) => {
+      const updateData: any = {
         displayName: payload.name,
         last_session_timestamp: payload.last_session_timestamp,
-      })
-      .where('uid = :uid', { uid: payload.uid })
-      .execute();
+      };
+      if (payload.increaseNoLoggedIn) {
+        updateData.no_times_logged_in = () => `no_times_logged_in + 1`;
+      }
+      await entityManager
+        .createQueryBuilder()
+        .update(User)
+        .set(updateData)
+        .where('uid = :uid', { uid: payload.uid })
+        .execute();
+    });
   }
 
   public async incNoTimesLoggedIn(uid: string): Promise<void> {
