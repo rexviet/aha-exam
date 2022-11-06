@@ -1,3 +1,16 @@
+const localStorageAsync = {
+    set: function (key, value) {
+        return Promise.resolve().then(function () {
+            localStorage.setItem(key, value);
+        });
+    },
+    get: function (key) {
+        return Promise.resolve().then(function () {
+            return localStorage.getItem(key);
+        });
+    }
+  };
+
 const updateProfile = async () => {
     const newName = $('div input').attr('value');
     console.log('new name:', newName);
@@ -8,6 +21,7 @@ const updateProfile = async () => {
     const storagedUser = localStorage.getItem('user');
     const user = JSON.parse(storagedUser);
     user.displayName = newName;
+    console.log('new user:', user);
     localStorageAsync.set('user', JSON.stringify(user)).then(backToDashboard);
 }
 
@@ -16,10 +30,8 @@ const backToDashboard = () => {
 }
 
 $(document).ready(async () => {
-    console.log("profile ready");
     axios.defaults.withCredentials = true;
     const storagedUser = localStorage.getItem('user');
-    console.log('AAAAA storagedUser', storagedUser);
     if (storagedUser) {
         const user = JSON.parse(storagedUser);
         $('span.name').text(user.displayName);
@@ -28,6 +40,9 @@ $(document).ready(async () => {
         $('div input').attr('value', user.displayName);
         $('button.btn-save-profile').on('click', updateProfile);
         $('button.btn-cancel').on('click', backToDashboard);
+        $('div input').on('keyup', (e) => {
+            $('div input').attr('value', e.target.value);
+        });
     }
     
 });
