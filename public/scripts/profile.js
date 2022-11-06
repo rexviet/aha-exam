@@ -25,6 +25,17 @@ const updateProfile = async () => {
     localStorageAsync.set('user', JSON.stringify(user)).then(backToDashboard);
 }
 
+const updatePassword = async () => {
+    const currentPasword = $('input.current-password').attr('value');
+    const newPasword = $('input.new-password').attr('value');
+    const confirmNewPasword = $('input.confirm-new-password').attr('value');
+    await axios.patch('https://api-dev-aha.coinlab.network/auth/change-password', {
+        currentPasword,
+        newPasword,
+        confirmNewPasword,
+    });
+}
+
 const backToDashboard = () => {
     location.href = 'dashboard.html';;
 }
@@ -37,12 +48,15 @@ $(document).ready(async () => {
         $('span.name').text(user.displayName);
         $('span.email').text(user.email);
         $('img').attr('src', user.photoURL);
-        $('div input').attr('value', user.displayName);
+        $('input.txtName').attr('value', user.displayName);
         $('button.btn-save-profile').on('click', updateProfile);
         $('button.btn-cancel').on('click', backToDashboard);
-        $('div input').on('keyup', (e) => {
-            $('div input').attr('value', e.target.value);
+        ['input.txtName', 'input.current-password', 'input.new-password', 'input.confirm-new-password'].forEach(selector => {
+            $(selector).on('keyup', (e) => {
+                $(selector).attr('value', e.target.value);
+            });
         });
+        $('button.btn-update-password').on('click', updatePassword);
     }
     
 });

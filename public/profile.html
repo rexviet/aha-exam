@@ -14,7 +14,7 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-primary navbar-expand">
+    <nav class="navbar navbar-dark bg-primary-fix navbar-expand">
         <div class="container"><a class="navbar-brand" href="#">Nest Auth</a>
         </div>
     </nav>
@@ -29,13 +29,13 @@
                 <span class="text-black-50 email">amelly12@bbb.com</span>
             </div>
            </div>
-           <div class="col-md-9 border-right">
+           <div class="col-md-5 border-right">
               <div class="p-3 py-5">
                  <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
+                    <h4 class="text-right">Profile Setting</h4>
                  </div>
                  <div class="row mt-2">
-                    <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" placeholder="Display name" value=""></div>
+                    <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control txtName" placeholder="Display name" value=""></div>
                     <!-- <div class="col-md-6"><label class="labels">Surname</label><input type="text" class="form-control" value="" placeholder="surname"></div> -->
                  </div>
                  <!-- <div class="row mt-3">
@@ -55,15 +55,18 @@
                  
               </div>
            </div>
-           <!-- <div class="col-md-4">
+           <div class="col-md-4">
               <div class="p-3 py-5">
-                 <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div>
+                 <div class="d-flex justify-content-between align-items-center experience"><h4 class="text-right">Password Setting</h4></div>
                  <br> 
-                 <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div>
+                 <div class="col-md-12"><input type="password" class="form-control current-password" placeholder="Current password" value=""></div>
                  <br> 
-                 <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
+                 <div class="col-md-12"><input type="password" class="form-control new-password" placeholder="New password" value=""></div>
+                 <br> 
+                 <div class="col-md-12"><input type="password" class="form-control confirm-new-password" placeholder="Confirm new password" value=""></div>
+                 <button class="btn btn-primary profile-button btn-update-password" type="button">Update Password</button>
               </div>
-           </div> -->
+           </div>
         </div>
      </div>
      </div>
