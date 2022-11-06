@@ -23,26 +23,26 @@ const defaultApp = firebase.initializeApp({
 // // https://firebase.google.com/docs/functions/typescript
 //
 export const helloWorld = functions.auth.user()
-  .onCreate(async (user: UserRecord) => {
-    functions.logger.info("User created:", {user: user.toJSON()});
-    let emailVerified = user.emailVerified;
-    if (!user.emailVerified &&
+    .onCreate(async (user: UserRecord) => {
+      functions.logger.info("User created:", {user: user.toJSON()});
+      let emailVerified = user.emailVerified;
+      if (!user.emailVerified &&
       user.providerData[0].providerId !== "password") {
-      await defaultApp.auth().updateUser(user.uid, {emailVerified: true});
-      emailVerified = true;
-    }
+        await defaultApp.auth().updateUser(user.uid, {emailVerified: true});
+        emailVerified = true;
+      }
 
-    const body = {
-      uid: user.uid,
-      emailVerified,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
-    };
-    try {
-      await axios.post("https://6a57-2402-800-6374-ec41-1866-746a-f9d6-4e62.ngrok.io/users", body);
-    } catch (err) {
-      console.error("err cmnr:", err);
-      functions.logger.error("err cmnr!", err);
-    }
-});
+      const body = {
+        uid: user.uid,
+        emailVerified,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+      try {
+        await axios.post("https://api-dev-aha.coinlab.network/users", body);
+      } catch (err) {
+        console.error("err cmnr:", err);
+        functions.logger.error("err cmnr!", err);
+      }
+    });
