@@ -151,6 +151,7 @@ const onBtnFacebookClicked = () => {
 
 $(document).ready(async () => {
   console.log('signup ready');
+  axios.defaults.withCredentials = true;
   $('#signup-form').on('submit', signupWithPassword);
   $('#btnGoogle').on('click', onBtnGoogleClicked);
   $('#btnFacebook').on('click', onBtnFacebookClicked);
