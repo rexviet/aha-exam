@@ -26,24 +26,24 @@ const updateProfile = async () => {
 }
 
 const updatePassword = async () => {
-    const currentPasword = $('input.current-password').attr('value');
-    const newPasword = $('input.new-password').attr('value');
-    const confirmNewPasword = $('input.confirm-new-password').attr('value');
+    const currentPassword = $('input.current-password').attr('value');
+    const newPassword = $('input.new-password').attr('value');
+    const confirmNewPassword = $('input.confirm-new-password').attr('value');
 
-    if (!currentPasword || !newPasword || !confirmNewPasword) {
+    if (!currentPassword || !newPassword || !confirmNewPassword) {
         alert("Current password, new password and confirm new password are required fields");
         return;
     }
 
-    if (newPasword !== confirmNewPasword) {
+    if (newPassword !== confirmNewPassword) {
         alert("Passwords are not match");
         return;
     }
 
     await axios.post('https://api-dev-aha.coinlab.network/auth/change-password', {
-        currentPasword,
-        newPasword,
-        confirmNewPasword,
+        currentPassword,
+        newPassword,
+        confirmNewPassword,
     });
 }
 
