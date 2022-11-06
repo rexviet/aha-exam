@@ -22,8 +22,8 @@ export class ExchangeTokenService {
         params.firebaseUser.uid,
         true,
         params.firebaseUser.email,
-        params.firebaseUser.displayName,
-        params.firebaseUser.photoURL,
+        params.firebaseUser.displayName || params.firebaseUser.name,
+        params.firebaseUser.photoURL || params.firebaseUser.picture,
       );
       user = await this.createUserService.execute(createUserParams);
     }

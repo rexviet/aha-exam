@@ -41,6 +41,7 @@ export class ExchangeSessionController {
     @Request() req,
     @Response() res,
   ) {
+    console.log('req.user:', req.user);
     const params = new ExchangeSessionParams(
       req.user,
       req.method,
