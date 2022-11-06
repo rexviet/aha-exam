@@ -28,6 +28,7 @@ export class UserRepositoryImpl implements IUserRepository {
     user.email = payload.email;
     user.displayName = payload.displayName;
     user.photoURL = payload.photoURL;
+    user.last_session_timestamp = Date.now();
     return this.repository.manager.transaction(async (entityManager) => {
       user = await entityManager.save(user);
 

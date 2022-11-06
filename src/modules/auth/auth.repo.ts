@@ -9,7 +9,10 @@ import { Injectable } from '@nestjs/common';
 import { getAuth, Auth, signInWithEmailAndPassword } from 'firebase/auth';
 
 export interface IAuthRepository {
-  createUser(email: string, password: string): Promise<UserRecord>;
+  createUser(
+    email: string,
+    password: string,
+  ): Promise<{ user: UserRecord; customToken: string }>;
   verifyToken(token: string): Promise<DecodedIdToken>;
   generateConfirmLink(email: string): Promise<string>;
   changePassword(payload: ChangePasswordPayload): Promise<void>;
@@ -44,11 +47,13 @@ export class AuthRepositoryImpl implements IAuthRepository {
   public async createUser(
     email: string,
     password: string,
-  ): Promise<UserRecord> {
-    return await this.firebaseApp.auth().createUser({
+  ): Promise<{ user: UserRecord; customToken: string }> {
+    const user = await this.firebaseApp.auth().createUser({
       email,
       password,
     });
+    const token = await this.firebaseApp.auth().createCustomToken(user.uid);
+    return { user, customToken: token };
   }
 
   public async verifyToken(token: string): Promise<DecodedIdToken> {

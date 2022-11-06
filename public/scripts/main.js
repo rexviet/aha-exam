@@ -16,18 +16,6 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE);
 
-
-const renderUserInfo = (user) => {
-  $('div.card').css('display', 'block');
-  $('.photo').attr('src', user.photoURL);
-  $('h1').text(user.displayName);
-  $('p.email').text(user.email);
-}
-
 $(document).ready(async () => {
-  const storagedUser = localStorage.getItem('user');
-  if (storagedUser) {
-    const user = JSON.parse(storagedUser);
-    renderUserInfo(user);
-  }
+  
 });

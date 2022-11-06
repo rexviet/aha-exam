@@ -78,7 +78,7 @@ blockquote {
  .google-btn .btn-text {
 	 float: right;
 	 margin: 11px 11px 0 0;
-	 color: #fff;
+	 color: rgb(255, 255, 255);
 	 font-size: 14px;
 	 letter-spacing: 0.2px;
 	 font-family: "Roboto";

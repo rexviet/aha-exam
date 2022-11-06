@@ -170,8 +170,6 @@ $(document).ready(async () => {
   $('#login-form').on('submit', onBtnLoginSubmit);
   $('#btnGoogle').on('click', onBtnGoogleClicked);
   $('#btnFacebook').on('click', onBtnFacebookClicked);
-  $('button.btnExchange').on('click', exchangeSession);
-  $('button.btnTestSession').on('click', testSession);
 });
 
 
@@ -194,9 +192,4 @@ const handleStorageUser = async (firebaseUser) => {
   localStorageAsync.set('user', JSON.stringify(user)).then(() => {
     location.href = 'dashboard.html';
   })
-  // const accessToken = user.stsTokenManager.accessToken;
-  // const refreshToken = user.stsTokenManager.refreshToken;
-  // localStorage.setItem('accessToken', accessToken);
-  // localStorage.setItem('refreshToken', refreshToken);
-  // localStorage.setItem('user', JSON.stringify(user));
 }

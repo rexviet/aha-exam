@@ -1,10 +1,13 @@
 <html>
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.min.js"></script>
     <meta name="viewport" content="width=device-width" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="./styles/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-dark bg-primary navbar-expand">
@@ -20,13 +23,32 @@
             </div>
             <div class='form-group'>
                 <label htmlFor='password'>Password</label>
-                <input type='password' class='form-control' id='password' placeholder='Password' required />
+                <input type='password' class='form-control' id='password' placeholder='Password' required/>
+            </div>
+            <div class='form-group'>
+                <label htmlFor='password'>Password</label>
+                <input type='password' class='form-control' id='confirm-password' placeholder='Confirm Password' required />
             </div>
             <p id="error" class="text-white text-small bg-danger"></p>
-            <button type='submit' class='btn btn-primary'>
+            <button  class='btn btn-primary'>
                 Signup
             </button>
         </form>
+
+        <div class="google-btn" id="btnGoogle" style="margin-left: 100; display: inline-block;">
+            <div class="google-icon-wrapper">
+              <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+            </div>
+            <p class="btn-text"><b>Sign up with google</b></p>
+          </div>
+  
+          <div class="google-btn" id="btnFacebook" style="margin-left: 200; display: inline-block;">
+              <div class="google-icon-wrapper">
+                <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/b/b8/2021_Facebook_icon.svg"/>
+              </div>
+              <p class="btn-text"><b>Sign up with facebook</b></p>
+          </div>
+
     </div>
     <script src="./scripts/signup.js"></script>
     
