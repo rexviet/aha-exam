@@ -42,7 +42,7 @@ export class ExchangeSessionController {
     @Response() res,
   ) {
     const params = new ExchangeSessionParams(
-      req.user.uid,
+      req.user,
       req.method,
       req.originalUrl.split('?')[0],
     );
