@@ -65,7 +65,7 @@ export class UserRepositoryImpl implements IUserRepository {
         last_session_timestamp: payload.last_session_timestamp,
       };
       if (payload.increaseNoLoggedIn) {
-        updateData.no_times_logged_in = () => `no_times_logged_in + 1`;
+        updateData.no_times_logged_in = () => 'no_times_logged_in + 1';
       }
       await entityManager
         .createQueryBuilder()
@@ -81,7 +81,7 @@ export class UserRepositoryImpl implements IUserRepository {
       .createQueryBuilder()
       .update(User)
       .set({
-        no_times_logged_in: () => `no_times_logged_in + 1`,
+        no_times_logged_in: () => 'no_times_logged_in + 1',
       })
       .where('uid = :uid', { uid })
       .execute();
