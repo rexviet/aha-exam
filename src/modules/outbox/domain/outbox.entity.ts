@@ -5,19 +5,19 @@ import { IOutboxModel } from './outbox.model';
 @Entity('outboxes')
 export class Outbox implements IOutboxModel {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'int',
     nullable: false,
   })
-  aggregateId: number;
+  aggregateId!: number;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  aggregateType: string;
+  aggregateType!: string;
 
   @Column({
     type: 'jsonb',
@@ -30,7 +30,7 @@ export class Outbox implements IOutboxModel {
     type: 'varchar',
     nullable: false,
   })
-  topic: string;
+  topic!: string;
 
   @Index('idx_outbox_status')
   @Column({
@@ -38,7 +38,7 @@ export class Outbox implements IOutboxModel {
     nullable: false,
     default: OutboxStatus.NEW,
   })
-  status: OutboxStatus;
+  status!: OutboxStatus;
 
   @Column({
     name: 'created_at',
@@ -46,7 +46,7 @@ export class Outbox implements IOutboxModel {
     precision: null,
     default: () => 'CURRENT_TIMESTAMP',
   })
-  created_at: Date;
+  created_at!: Date;
 
   @Column({
     name: 'updated_at',

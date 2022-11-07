@@ -13,6 +13,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetMyProfileSymbol } from './get-user-by-uid.provider';
 import { GetUserByUidService } from './get-user-by-uid.service';
+import {Response as Res} from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -30,7 +31,7 @@ export class GetMyProfileController {
   @Get('me')
   public async getMyProfile(
     @CurrentUser() currentUser: ICurrentUser,
-    @Response() res,
+    @Response() res: Res,
   ) {
     const user = await this.signUpService.execute(currentUser.uid);
 

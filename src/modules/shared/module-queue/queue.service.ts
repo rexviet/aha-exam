@@ -26,7 +26,7 @@ export class QueueService {
   public async consume(
     domain: string,
     handler: (message: any) => any,
-    topic: string,
+    topic: string | null,
     options?: IConsumerOptions,
   ): Promise<void> {
     return this.queueRepository.consume(domain, handler, topic, options);

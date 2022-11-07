@@ -4,20 +4,20 @@ import { IUserModel } from './user.model';
 @Entity('users')
 export class User implements IUserModel {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  provider: string;
+  provider!: string;
 
   @Index('idx_user_uid', { unique: true })
   @Column({
     type: 'varchar',
     nullable: false,
   })
-  uid: string;
+  uid!: string;
 
   @Index('idx_user_email')
   @Column({
@@ -30,7 +30,7 @@ export class User implements IUserModel {
     type: 'boolean',
     nullable: false,
   })
-  emailVerified: boolean;
+  emailVerified!: boolean;
 
   @Column({
     type: 'varchar',

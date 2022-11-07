@@ -16,6 +16,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserProfileService } from '../update-user-profile/update-user-profile.service';
 import { UpdateUserDto } from './update-my-profile.dto';
 import { UpdateMyProfileSymbol } from './update-my-profile.provider';
+import {Response as Res} from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -34,7 +35,7 @@ export class UpdateMyProfileController {
   public async updateMyProfile(
     @Body() body: UpdateUserDto,
     @CurrentUser() currentUser: ICurrentUser,
-    @Response() res,
+    @Response() res: Res,
   ) {
     const params = new UpdateUserProfileParams(currentUser.uid, body.name);
     const user = await this.updateMyProfileService.execute(params);

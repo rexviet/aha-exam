@@ -3,7 +3,7 @@ import { ERROR_CODE, ErrorList, IErrorDetails } from './codes';
 
 export class AppError extends Error {
   protected errorCode: ERROR_CODE;
-  protected messageError: string;
+  protected messageError: string | undefined;
   protected statusCode: HttpStatus;
   errors?: IErrorDetails[];
   additionalData?: any;

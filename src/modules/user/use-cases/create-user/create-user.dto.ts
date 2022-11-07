@@ -12,12 +12,12 @@ export class CreateUserDto {
   @ApiProperty()
   @IsDefined()
   @IsString()
-  uid: string;
+  uid!: string;
 
   @ApiProperty()
   @IsDefined()
   @IsString()
-  provider: string;
+  provider!: string;
 
   @ApiProperty()
   @IsBoolean()

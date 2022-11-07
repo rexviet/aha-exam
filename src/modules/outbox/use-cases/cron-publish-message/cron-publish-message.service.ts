@@ -19,7 +19,7 @@ export class CronPublishMessageService {
     if (!messages || !messages.length) {
       return;
     }
-    const messageIds = [];
+    const messageIds: number[] = [];
     const promises = messages.map((message) => {
       messageIds.push(message.id);
       const queueMessage: IQueueMessage<IOutboxModel> = {

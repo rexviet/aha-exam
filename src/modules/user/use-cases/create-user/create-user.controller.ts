@@ -12,6 +12,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 import { CreateUserSymbol } from './create-user.provider';
 import { CreateUserService } from './create-user.service';
+import {Response as Res} from 'express';
 
 @ApiTags('users')
 @Controller('users')
@@ -26,7 +27,7 @@ export class CreateUserController {
     status: HttpStatus.CREATED,
   })
   @Post('')
-  public async createUser(@Body() body: CreateUserDto, @Response() res) {
+  public async createUser(@Body() body: CreateUserDto, @Response() res: Res) {
     const params = new CreateUserParams(
       body.provider,
       body.uid,

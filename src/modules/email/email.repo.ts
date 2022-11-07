@@ -14,10 +14,10 @@ export class EmailRepositoryImpl implements IEmailRepository {
 
   constructor(private readonly configService: ConfigService) {
     this.mailjet = Mailjet.apiConnect(
-      this.configService.get<string>('MAILJET_API_KEY'),
-      this.configService.get<string>('MAILJET_API_SECRET'),
+      this.configService.get<string>('MAILJET_API_KEY') as string,
+      this.configService.get<string>('MAILJET_API_SECRET') as string,
     );
-    this.systemEmail = this.configService.get<string>('SYSTEM_EMAIL');
+    this.systemEmail = this.configService.get<string>('SYSTEM_EMAIL') as string;
   }
 
   public async sendConfirmEmail(

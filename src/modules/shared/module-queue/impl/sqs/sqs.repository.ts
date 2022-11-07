@@ -72,7 +72,7 @@ export class SqsRepository implements IQueueRepository {
   public async consume(
     domain: string,
     handler: (message: any) => any,
-    topic?: string,
+    topic: string | null,
     options?: ISqSConsumerOptions,
   ): Promise<void> {
     let queueUrl = `${this.sqsUrl}-${domain}`;

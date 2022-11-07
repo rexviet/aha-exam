@@ -16,10 +16,11 @@ export class SendEmailConfirmationService {
       return;
     }
 
+    const email = user.email as string;
     const confirmLink = await this.generateConfirmLinkService.execute(
-      user.email,
+      email,
     );
-    const payload = new SendConfirmEmailPayload(user.email, confirmLink);
+    const payload = new SendConfirmEmailPayload(email, confirmLink);
     return this.repository.sendConfirmEmail(payload);
   }
 }
