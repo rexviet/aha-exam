@@ -38,7 +38,9 @@ async function bootstrap() {
   const RedisStore = connectRedis(session);
   const redisClient = createClient({
     url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+    legacyMode: true,
   });
+  await redisClient.connect();
   app.use(
     session({
       store: new RedisStore({ client: redisClient }),
