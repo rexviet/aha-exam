@@ -9,6 +9,8 @@ import { AllExceptionsFilter } from 'filters/all-exceptions-filter';
 import session from 'express-session';
 import passport from 'passport';
 import cookieParser from 'cookie-parser';
+import { createClient } from 'redis';
+import connectRedis from 'connect-redis';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -33,9 +35,14 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
   app.useGlobalFilters(new AllExceptionsFilter());
   // app.set('trust proxy', 1);
+  const RedisStore = connectRedis(session);
+  const redisClient = createClient({
+    url: `redis://${process.env.REDIS_HOST}:${process.env.REDIS_PORT}`,
+  });
   app.use(
     session({
-      secret: 'my-secret',
+      store: new RedisStore({ client: redisClient }),
+      secret: process.env.SESSION_SECRET,
       resave: false,
       proxy: true,
       saveUninitialized: false,
