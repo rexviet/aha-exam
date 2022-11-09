@@ -14,6 +14,8 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetMyProfileSymbol } from './get-user-by-uid.provider';
 import { GetUserByUidService } from './get-user-by-uid.service';
 import {Response as Res} from 'express';
+import { AppError } from '@configs/common/app-error';
+import { ERROR_CODE } from '@configs/common/codes';
 
 @ApiTags('users')
 @Controller('users')
@@ -34,7 +36,9 @@ export class GetMyProfileController {
     @Response() res: Res,
   ) {
     const user = await this.signUpService.execute(currentUser.uid);
-
+    if (!user) {
+      throw new AppError(ERROR_CODE.USER_NOT_FOUND);
+    }
     return successResponse(
       'Get my profile successful',
       user,
