@@ -5,12 +5,12 @@ const signOut = async () => {
 };
 
 const getSummary = async () => {
-    const {data} = await axios.get('http://localhost:3000/users/summary');
+    const {data} = await axios.get('https://api-dev-aha.coinlab.network/users/summary');
     return data.data;
 }
 
 const getListUsers = async () => {
-    const {data} = await axios.get('http://localhost:3000/users');
+    const {data} = await axios.get('https://api-dev-aha.coinlab.network/users');
     return data;
 }
 
