@@ -5,14 +5,9 @@ const confirmPasswordField = document.getElementById('confirm-password');
 
 const signupWithPassword = async (e) => {
   e.preventDefault();
-  
-  const email = emailField.value;
-  const password = passwordField.value;
-  const confirmPassword = confirmPasswordField.value;
-
-  console.log('email:', email);
-  console.log('password:', password);
-  console.log('confirmPassword:', confirmPassword);
+  const email = $('#email').attr('value');
+  const password = $('#password').attr('value');
+  const confirmPassword = $('#confirm-password').attr('value');
 
   if (password !== confirmPassword) {
     alert("Password not match");
@@ -151,10 +146,15 @@ const onBtnFacebookClicked = () => {
 
 $(document).ready(async () => {
   console.log('signup ready');
+  ['input#email', 'input#password', 'input#confirm-password'].forEach(selector => {
+    $(selector).on('keyup', (e) => {
+        $(selector).attr('value', e.target.value);
+    });
+});
   axios.defaults.withCredentials = true;
-  $('#signup-form').on('submit', signupWithPassword);
-  $('#btnGoogle').on('click', onBtnGoogleClicked);
-  $('#btnFacebook').on('click', onBtnFacebookClicked);
+  $('a.btn-signup').on('click', signupWithPassword);
+  $('a.btn-google').on('click', onBtnGoogleClicked);
+  $('a.btn-facebook').on('click', onBtnFacebookClicked);
 });
 
 const exchangeSession = async (firebaseUser) => {

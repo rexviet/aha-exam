@@ -54,10 +54,10 @@ $(document).ready(async () => {
         const user = JSON.parse(storagedUser);
         $('span.name').text(user.displayName);
         $('img').attr('src', user.photoURL);
-        $('button.btn-edit-profile').on('click', () => {
+        $('a.btn-edit-profile').on('click', () => {
             location.href = 'profile.html';
         })
-        $('button.btn-sign-out').on('click', signOut);
+        $('a.btn-sign-out').on('click', signOut);
         await renderSummary();
         await renderTableUsers();
     }
