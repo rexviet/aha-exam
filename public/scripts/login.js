@@ -168,6 +168,7 @@ $(document).ready(async () => {
   console.log('ready');
   axios.defaults.withCredentials = true;
   $('#login-form').on('submit', onBtnLoginSubmit);
+  $('#btnLogin').on('click', onBtnLoginSubmit);
   $('#btnGoogle').on('click', onBtnGoogleClicked);
   $('#btnFacebook').on('click', onBtnFacebookClicked);
 });
