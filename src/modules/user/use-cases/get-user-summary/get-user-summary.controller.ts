@@ -25,7 +25,7 @@ export class GetUserSummaryController {
   @ApiResponse({
     status: HttpStatus.OK,
   })
-  // @UseGuards(AuthenticatedGuard)
+  @UseGuards(AuthenticatedGuard)
   @Get('/summary')
   public async getUserSummary(@Response() res: Res) {
     const summary = await this.getSummaryService.execute();

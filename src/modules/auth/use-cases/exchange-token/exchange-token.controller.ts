@@ -18,7 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { ExchangeTokenSymbol } from './exchange-token.provider';
 import { ExchangeTokenService } from './exchange-token.service';
-import {Request as Req, Response as Res} from 'express';
+import { Request as Req, Response as Res } from 'express';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -35,10 +35,7 @@ export class ExchangeSessionController {
   @ApiBearerAuth()
   @Get('/exchange-session')
   @UseGuards(BearerAuthGuard)
-  public async exchangeSession(
-    @Request() req: Req,
-    @Response() res: Res,
-  ) {
+  public async exchangeSession(@Request() req: Req, @Response() res: Res) {
     const params = new ExchangeSessionParams(
       req.user,
       req.method,

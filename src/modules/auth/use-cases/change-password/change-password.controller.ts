@@ -16,7 +16,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from './change-password.dto';
 import { ChangePasswordSymbol } from './change-password.provider';
 import { ChangePasswordService } from './change-password.service';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 
 @ApiTags('auth')
 @Controller('auth')

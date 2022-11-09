@@ -8,12 +8,8 @@ import {
   Session,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import {Response as Res} from 'express';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { Response as Res } from 'express';
 
 @ApiTags('auth')
 @Controller('auth')

@@ -17,9 +17,7 @@ export class SendEmailConfirmationService {
     }
 
     const email = user.email as string;
-    const confirmLink = await this.generateConfirmLinkService.execute(
-      email,
-    );
+    const confirmLink = await this.generateConfirmLinkService.execute(email);
     const payload = new SendConfirmEmailPayload(email, confirmLink);
     return this.repository.sendConfirmEmail(payload);
   }

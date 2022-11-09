@@ -9,10 +9,21 @@ export const GetUserSummarySymbol = Symbol('GetUserSummarySymbol');
 
 export const GetUserSummaryProvider: Provider = {
   provide: GetUserSummarySymbol,
-  useFactory: (repo: UserRepositoryImpl, userActionRepo: UserActionRepositoryImpl): GetUserSummaryService => {
-    const countActiveSessionsTodayService = new CountActiveSessionsTodayService(userActionRepo);
-    const countAvgSessionsService = new CountAvgSessionsInDaysRangeService(userActionRepo);
-    return new GetUserSummaryService(repo, countActiveSessionsTodayService, countAvgSessionsService);
+  useFactory: (
+    repo: UserRepositoryImpl,
+    userActionRepo: UserActionRepositoryImpl,
+  ): GetUserSummaryService => {
+    const countActiveSessionsTodayService = new CountActiveSessionsTodayService(
+      userActionRepo,
+    );
+    const countAvgSessionsService = new CountAvgSessionsInDaysRangeService(
+      userActionRepo,
+    );
+    return new GetUserSummaryService(
+      repo,
+      countActiveSessionsTodayService,
+      countAvgSessionsService,
+    );
   },
   inject: [UserRepositoryImpl, UserActionRepositoryImpl],
 };

@@ -95,9 +95,12 @@ export class UserRepositoryImpl implements IUserRepository {
     return this.repository.createQueryBuilder().getCount();
   }
 
-  public async getListUsers(payload: GetListUsersPayload): Promise<ListModelRes<IUserModel>> {
+  public async getListUsers(
+    payload: GetListUsersPayload,
+  ): Promise<ListModelRes<IUserModel>> {
     const skip = (payload.page - 1) * payload.pageSize;
-    const [users, total] = await this.repository.createQueryBuilder()
+    const [users, total] = await this.repository
+      .createQueryBuilder()
       .orderBy('id', 'DESC')
       .skip(skip)
       .take(payload.pageSize)

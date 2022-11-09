@@ -17,7 +17,7 @@ export function successResponseUnWrap(
   res: Response,
   status?: HttpStatus,
 ) {
-  return res.status(status || HttpStatus.OK).json({...data, ...{message}});
+  return res.status(status || HttpStatus.OK).json({ ...data, ...{ message } });
 }
 
 export function failureResponse(

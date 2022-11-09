@@ -14,7 +14,7 @@ const localStorageAsync = {
 const updateProfile = async () => {
     const newName = $('div input').attr('value');
     console.log('new name:', newName);
-    await axios.patch('https://api-dev-aha.coinlab.network/users/me', {
+    await axios.patch('https://aha-exam-api.chaunguyen.dev/users/me', {
         name: newName
     });
     $('span.name').text(newName);
@@ -40,7 +40,7 @@ const updatePassword = async () => {
         return;
     }
 
-    await axios.post('https://api-dev-aha.coinlab.network/auth/change-password', {
+    await axios.post('https://aha-exam-api.chaunguyen.dev/auth/change-password', {
         currentPassword,
         newPassword,
         confirmNewPassword,

@@ -7,10 +7,15 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class GetListUsersService {
-    constructor(private readonly repository: IUserRepository) {}
+  constructor(private readonly repository: IUserRepository) {}
 
-    public async execute(params: GetListUsersParams): Promise<ListModelRes<IUserModel>> {
-        const payload = new GetListUsersPayload(params.page || 1, params.pageSize || 20);
-        return this.repository.getListUsers(payload);
-    }
+  public async execute(
+    params: GetListUsersParams,
+  ): Promise<ListModelRes<IUserModel>> {
+    const payload = new GetListUsersPayload(
+      params.page || 1,
+      params.pageSize || 20,
+    );
+    return this.repository.getListUsers(payload);
+  }
 }

@@ -13,7 +13,7 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GetMyProfileSymbol } from './get-user-by-uid.provider';
 import { GetUserByUidService } from './get-user-by-uid.service';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 import { AppError } from '@configs/common/app-error';
 import { ERROR_CODE } from '@configs/common/codes';
 

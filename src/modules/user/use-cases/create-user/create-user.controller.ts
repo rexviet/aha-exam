@@ -12,7 +12,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from './create-user.dto';
 import { CreateUserSymbol } from './create-user.provider';
 import { CreateUserService } from './create-user.service';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 
 @ApiTags('users')
 @Controller('users')

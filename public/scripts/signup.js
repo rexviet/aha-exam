@@ -13,7 +13,7 @@ const signupWithPassword = async (e) => {
     alert("Password not match");
   }
 
-  const response = await axios.post('https://api-dev-aha.coinlab.network/auth/signup', {
+  const response = await axios.post('https://aha-exam-api.chaunguyen.dev/auth/signup', {
     email,
     password,
     confirmPassword,
@@ -162,7 +162,7 @@ const exchangeSession = async (firebaseUser) => {
 
   const token = firebaseUser.stsTokenManager.accessToken;
   console.log('axios:', axios);
-  const response = await axios.get('https://api-dev-aha.coinlab.network/auth/exchange-session', {
+  const response = await axios.get('https://aha-exam-api.chaunguyen.dev/auth/exchange-session', {
     headers: {
       'Authorization': `Bearer ${token}`
     }

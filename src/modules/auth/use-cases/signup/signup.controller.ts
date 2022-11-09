@@ -12,7 +12,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SignUpDto } from './signup.dto';
 import { SignUpSymbol } from './signup.provider';
 import { SignUpService } from './signup.service';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 
 @ApiTags('auth')
 @Controller('auth')

@@ -3,9 +3,9 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class CountActiveSessionsTodayService {
-    constructor(private readonly repository: IUserActionRepository) {}
+  constructor(private readonly repository: IUserActionRepository) {}
 
-    public async execute(): Promise<number> {
-        return this.repository.countActiveSessionsToday();
-    }
+  public async execute(): Promise<number> {
+    return this.repository.countActiveSessionsToday();
+  }
 }

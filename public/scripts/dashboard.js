@@ -1,16 +1,16 @@
 const signOut = async () => {
-    await axios.get('https://api-dev-aha.coinlab.network/auth/logout');
+    await axios.get('https://aha-exam-api.chaunguyen.dev/auth/logout');
     localStorage.removeItem('user');
     location.href = 'index.html';
 };
 
 const getSummary = async () => {
-    const {data} = await axios.get('https://api-dev-aha.coinlab.network/users/summary');
+    const {data} = await axios.get('https://aha-exam-api.chaunguyen.dev/users/summary');
     return data.data;
 }
 
 const getListUsers = async () => {
-    const {data} = await axios.get('https://api-dev-aha.coinlab.network/users');
+    const {data} = await axios.get('https://aha-exam-api.chaunguyen.dev/users');
     return data;
 }
 

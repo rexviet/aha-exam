@@ -138,7 +138,7 @@ const exchangeSession = async (firebaseUser) => {
 
   const token = firebaseUser.stsTokenManager.accessToken;
   console.log('axios:', axios);
-  const response = await axios.get('https://api-dev-aha.coinlab.network/auth/exchange-session', {
+  const response = await axios.get('https://aha-exam-api.chaunguyen.dev/auth/exchange-session', {
     headers: {
       'Authorization': `Bearer ${token}`
     }
@@ -150,11 +150,11 @@ const testSession = async () => {
   axios.get('http://localhost:3000', {
       withCredentials: true 
     });
-  // const testRs = await fetch('https://api-dev-aha.coinlab.network', {credentials: 'include'});
+  // const testRs = await fetch('https://aha-exam-api.chaunguyen.dev', {credentials: 'include'});
   // console.log('testRs:', testRs);
   // $.ajax({
   //   type: 'GET',
-  //   url: `https://api-dev-aha.coinlab.network`,
+  //   url: `https://aha-exam-api.chaunguyen.dev`,
   //   xhrFields: {
   //     withCredentials: true
   //  },

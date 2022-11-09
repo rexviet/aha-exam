@@ -46,9 +46,12 @@ export class UserActionRepositoryImpl implements IUserActionRepository {
   }
 
   public async countActiveSessionsToday(): Promise<number> {
-    return this.repository.createQueryBuilder()
+    return this.repository
+      .createQueryBuilder()
       .select('COUNT(DISTINCT(uid))')
-      .where(`TO_TIMESTAMP("timestamp"/1000) BETWEEN current_date  + time '00:00:00' AND current_date  + time '23:59:59'`)
+      .where(
+        "TO_TIMESTAMP(\"timestamp\"/1000) BETWEEN current_date  + time '00:00:00' AND current_date  + time '23:59:59'",
+      )
       .getCount();
   }
 

@@ -16,7 +16,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateUserProfileService } from '../update-user-profile/update-user-profile.service';
 import { UpdateUserDto } from './update-my-profile.dto';
 import { UpdateMyProfileSymbol } from './update-my-profile.provider';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 
 @ApiTags('users')
 @Controller('users')
