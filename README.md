@@ -2,15 +2,15 @@
 
 This project is the home assignment for applying to **Senior Backend Developer** at Avancevl (AVL).
 
-Live Product: TBD
+Live Product: https://aha-web.chaunguyen.dev/
 
-Swagger Document: TBD
+Swagger Document: https://aha-exam-api.chaunguyen.dev/docs/
 
 ## Tech Stack:
 
 - For Front-end, I am using HTML, CSS, JS, JQuery.
-- For Dashboard, I am using Retool.
-- For Back-end, I am using NGINX as a preverse proxy for my NodeJS application, which is written in NestJS Framework, Domain Driven Design.
+- For Dashboard, I originally planned to use Retool, but there were many problems with sharing permissions to public viewer can see the embedded dashboard, so I have programmed it by my self.
+- For Back-end, I am using NGINX as a preverse proxy for my NodeJS application, which is written in NestJS Framework, Clean Architecture.
 - For Authentication, I am using Firebase Auth, with 03 providers: Email - Password, Facebook Auth, Google Auth.
 - For Email sending, I am using MailJet.
 - For Database, I am uing PostgresDB to store main data, and Redis to store Session data.
@@ -18,7 +18,7 @@ Swagger Document: TBD
 
 ## Techniques:
 
-- Domain Driven Design
+- Clean Architecture
 - Dependency Inversion Principle
 - Outbox Transactional Pattern
 - Session based Authentication
