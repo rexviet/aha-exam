@@ -46,13 +46,19 @@ export class UserActionRepositoryImpl implements IUserActionRepository {
   }
 
   public async countActiveSessionsToday(): Promise<number> {
-    return this.repository
-      .createQueryBuilder()
-      .select('COUNT(DISTINCT(uid))')
-      .where(
-        "TO_TIMESTAMP(\"timestamp\"/1000) BETWEEN current_date  + time '00:00:00' AND current_date  + time '23:59:59'",
-      )
-      .getCount();
+    const queryRunner = this.dataSource.createQueryRunner();
+    const queryRs = await queryRunner.query(
+      `
+        SELECT COUNT( DISTINCT(uid) ) AS "count"
+        FROM
+          "public"."user_actions" "UserAction" 
+        WHERE
+          TO_TIMESTAMP( "timestamp" / 1000 ) BETWEEN CURRENT_DATE + TIME'00:00:00' 
+          AND CURRENT_DATE + TIME'23:59:59'
+      `,
+    );
+    await queryRunner.release();
+    return Number(queryRs[0].count);
   }
 
   public async countAvgSessionsInDaysRange(days: number): Promise<number> {
