@@ -6,6 +6,8 @@ import { Repository } from 'typeorm';
 import { Outbox } from '@modules/outbox/domain/outbox.entity';
 import { UpdateUserProfilePayload } from './domain/payloads/update-user-profile.payload';
 import { Injectable } from '@nestjs/common';
+import { GetListUsersPayload } from './domain/payloads/get-list-users.payload';
+import { ListModelRes } from '@modules/shared/domain/list-model';
 
 export interface IUserRepository {
   createUser(payload: CreateUserPayload): Promise<IUserModel>;
@@ -13,6 +15,7 @@ export interface IUserRepository {
   updateUserProfile(payload: UpdateUserProfilePayload): Promise<void>;
   incNoTimesLoggedIn(uid: string): Promise<void>;
   countTotalSignedUpUsers(): Promise<number>;
+  getListUsers(payload: GetListUsersPayload): Promise<ListModelRes<IUserModel>>;
 }
 
 @Injectable()
@@ -92,4 +95,13 @@ export class UserRepositoryImpl implements IUserRepository {
     return this.repository.createQueryBuilder().getCount();
   }
 
+  public async getListUsers(payload: GetListUsersPayload): Promise<ListModelRes<IUserModel>> {
+    const skip = (payload.page - 1) * payload.pageSize;
+    const [users, total] = await this.repository.createQueryBuilder()
+      .orderBy('id', 'DESC')
+      .skip(skip)
+      .take(payload.pageSize)
+      .getManyAndCount();
+    return new ListModelRes(users, total);
+  }
 }

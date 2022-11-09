@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from './domain/user.entity';
 import { CreateUserController } from './use-cases/create-user/create-user.controller';
 import { CreateUserProvider } from './use-cases/create-user/create-user.provider';
+import { GetListUsersController } from './use-cases/get-list-users/get-list-users.controller';
+import { GetListUsersProvider } from './use-cases/get-list-users/get-list-users.provider';
 import { GetMyProfileController } from './use-cases/get-user-by-uid/get-user-by-uid.controller';
 import { GetMyProfileProvider } from './use-cases/get-user-by-uid/get-user-by-uid.provider';
 import { GetUserSummaryController } from './use-cases/get-user-summary/get-user-summary.controller';
@@ -21,6 +23,7 @@ import { UserRepositoryImpl } from './user.repo';
     GetMyProfileController,
     UpdateMyProfileController,
     GetUserSummaryController,
+    GetListUsersController,
   ],
   providers: [
     UserRepositoryImpl,
@@ -28,6 +31,7 @@ import { UserRepositoryImpl } from './user.repo';
     GetMyProfileProvider,
     UpdateMyProfileProvider,
     GetUserSummaryProvider,
+    GetListUsersProvider,
   ],
   exports: [UserModule, UserRepositoryImpl],
 })

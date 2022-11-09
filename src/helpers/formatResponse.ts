@@ -11,6 +11,15 @@ export function successResponse(
   return res.status(status || HttpStatus.OK).json({ message, data });
 }
 
+export function successResponseUnWrap(
+  message: string,
+  data: any,
+  res: Response,
+  status?: HttpStatus,
+) {
+  return res.status(status || HttpStatus.OK).json({...data, ...{message}});
+}
+
 export function failureResponse(
   message: string,
   res: Response,
