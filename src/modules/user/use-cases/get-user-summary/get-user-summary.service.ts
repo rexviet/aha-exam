@@ -5,18 +5,20 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class GetUserSummaryService {
-    constructor(
-        private readonly repository: IUserRepository,
-        private readonly countActiveSessionsTodayService: CountActiveSessionsTodayService,
-        private readonly countAvgSessionsInDayRangeService: CountAvgSessionsInDaysRangeService,
-    ) {}
+  constructor(
+    private readonly repository: IUserRepository,
+    private readonly countActiveSessionsTodayService: CountActiveSessionsTodayService,
+    private readonly countAvgSessionsInDayRangeService: CountAvgSessionsInDaysRangeService,
+  ) {}
 
-    public async execute() {
-        const [signedUpUsers, activeSessionsToday, avgSessions] = await Promise.all([
-            this.repository.countTotalSignedUpUsers(),
-            this.countActiveSessionsTodayService.execute(),
-            this.countAvgSessionsInDayRangeService.execute(7),
-        ]);
-        return {signedUpUsers, activeSessionsToday, avgSessions}
-    }
+  public async execute() {
+    const [signedUpUsers, activeSessionsToday, avgSessions] = await Promise.all(
+      [
+        this.repository.countTotalSignedUpUsers(),
+        this.countActiveSessionsTodayService.execute(),
+        this.countAvgSessionsInDayRangeService.execute(7),
+      ],
+    );
+    return { signedUpUsers, activeSessionsToday, avgSessions };
+  }
 }

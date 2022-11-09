@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import {Response as Res} from 'express';
+import { Response as Res } from 'express';
 import { GetUserSummarySymbol } from './get-user-summary.provider';
 import { GetUserSummaryService } from './get-user-summary.service';
 
@@ -25,11 +25,9 @@ export class GetUserSummaryController {
   @ApiResponse({
     status: HttpStatus.OK,
   })
-  @UseGuards(AuthenticatedGuard)
+  // @UseGuards(AuthenticatedGuard)
   @Get('/summary')
-  public async getUserSummary(
-    @Response() res: Res,
-  ) {
+  public async getUserSummary(@Response() res: Res) {
     const summary = await this.getSummaryService.execute();
 
     return successResponse(

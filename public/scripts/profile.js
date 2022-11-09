@@ -56,13 +56,13 @@ $(document).ready(async () => {
     const storagedUser = localStorage.getItem('user');
     if (storagedUser) {
         const user = JSON.parse(storagedUser);
-        $('span.name').text(user.displayName);
-        $('span.email').text(user.email);
+        $('h3.name').text(user.displayName);
+        $('p.email').text(user.email);
         $('img').attr('src', user.photoURL);
-        $('input.txtName').attr('value', user.displayName);
+        $('input.input-name').attr('value', user.displayName);
         $('button.btn-save-profile').on('click', updateProfile);
         $('button.btn-cancel').on('click', backToDashboard);
-        ['input.txtName', 'input.current-password', 'input.new-password', 'input.confirm-new-password'].forEach(selector => {
+        ['input.input-name', 'input.current-password', 'input.new-password', 'input.confirm-new-password'].forEach(selector => {
             $(selector).on('keyup', (e) => {
                 $(selector).attr('value', e.target.value);
             });
