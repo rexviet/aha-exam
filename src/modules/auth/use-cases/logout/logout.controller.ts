@@ -1,22 +1,19 @@
 import { successResponse } from '@helpers/formatResponse';
 import { AuthenticatedGuard } from '@modules/auth/authenticated.guards';
-import { BearerAuthGuard } from '@modules/auth/bearer.auth.guard';
 import {
   Controller,
   Get,
   HttpStatus,
-  Post,
-  Request,
   Response,
   Session,
   UseGuards,
 } from '@nestjs/common';
 import {
-  ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import {Response as Res} from 'express';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -29,7 +26,7 @@ export class LogoutController {
   @UseGuards(AuthenticatedGuard)
   public async logout(
     @Session() session: Record<string, any>,
-    @Response() res,
+    @Response() res: Res,
   ) {
     session.destroy();
 

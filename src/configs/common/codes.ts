@@ -21,6 +21,7 @@ enum ERROR_CODE {
   INVALID_PASSWORD = 'INVALID_PASSWORD',
   EMAIL_ALREADY_EXISTS = 'EMAIL_ALREADY_EXISTS',
   USER_NOT_EXISTS = 'USER_NOT_EXISTS',
+  USER_NOT_FOUND = 'USER_NOT_FOUND',
 }
 
 const ErrorList = {
@@ -80,6 +81,10 @@ const ErrorList = {
   [ERROR_CODE.USER_NOT_EXISTS]: {
     code: HttpStatus.UNPROCESSABLE_ENTITY,
     error: 'User not exists',
+  },
+  [ERROR_CODE.USER_NOT_FOUND]: {
+    code: HttpStatus.NOT_FOUND,
+    error: 'User not found',
   },
 };
 

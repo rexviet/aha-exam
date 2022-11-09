@@ -104,7 +104,7 @@ export class SqsRepository implements IQueueRepository {
       });
 
       app.start();
-    } catch (error) {
+    } catch (error: any) {
       this.logger.error(error.message, SqsRepository.name, { queueUrl });
       throw error;
     }

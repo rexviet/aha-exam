@@ -18,7 +18,7 @@ export class BearerStrategy extends PassportStrategy(Strategy) {
     try {
       return await this.authRepo.verifyToken(token);
     } catch (error) {
-      done(error, 'The token is not valid');
+      return done(error as HttpException, 'The token is not valid');
     }
   }
 }

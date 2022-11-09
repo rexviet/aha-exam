@@ -9,9 +9,10 @@ import { Injectable } from '@nestjs/common';
 
 export interface IUserRepository {
   createUser(payload: CreateUserPayload): Promise<IUserModel>;
-  getUserByUid(uid: string): Promise<IUserModel>;
+  getUserByUid(uid: string): Promise<IUserModel | null>;
   updateUserProfile(payload: UpdateUserProfilePayload): Promise<void>;
   incNoTimesLoggedIn(uid: string): Promise<void>;
+  countTotalSignedUpUsers(): Promise<number>;
 }
 
 @Injectable()
@@ -25,7 +26,7 @@ export class UserRepositoryImpl implements IUserRepository {
     let user = new User();
     user.provider = payload.provider;
     user.uid = payload.uid;
-    user.emailVerified = payload.emailVerified;
+    user.emailVerified = payload.emailVerified || false;
     user.email = payload.email;
     user.displayName = payload.displayName;
     user.photoURL = payload.photoURL;
@@ -49,7 +50,7 @@ export class UserRepositoryImpl implements IUserRepository {
     });
   }
 
-  public async getUserByUid(uid: string): Promise<IUserModel> {
+  public async getUserByUid(uid: string): Promise<IUserModel | null> {
     return this.repository
       .createQueryBuilder()
       .where('uid = :uid', { uid })
@@ -86,4 +87,9 @@ export class UserRepositoryImpl implements IUserRepository {
       .where('uid = :uid', { uid })
       .execute();
   }
+
+  public async countTotalSignedUpUsers(): Promise<number> {
+    return this.repository.createQueryBuilder().getCount();
+  }
+
 }

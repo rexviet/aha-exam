@@ -1,7 +1,5 @@
-import { CurrentUser } from '@modules/auth/auth.session';
 import { AuthenticatedGuard } from '@modules/auth/authenticated.guards';
-import { ICurrentUser } from '@modules/auth/domain/current-user.model';
-import { Controller, Get, Request, UseGuards } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -10,7 +8,7 @@ export class AppController {
 
   @Get()
   @UseGuards(AuthenticatedGuard)
-  getHello(@CurrentUser() currentUser: ICurrentUser, @Request() req): string {
+  getHello(): string {
     return this.appService.getHello();
   }
 }

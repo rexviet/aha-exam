@@ -12,6 +12,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { SignUpDto } from './signup.dto';
 import { SignUpSymbol } from './signup.provider';
 import { SignUpService } from './signup.service';
+import {Response as Res} from 'express';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -26,7 +27,7 @@ export class SignUpController {
     status: HttpStatus.CREATED,
   })
   @Post('/signup')
-  public async CreateUser(@Body() body: SignUpDto, @Response() res) {
+  public async CreateUser(@Body() body: SignUpDto, @Response() res: Res) {
     const params = new SignUpParams(
       body.email,
       body.password,

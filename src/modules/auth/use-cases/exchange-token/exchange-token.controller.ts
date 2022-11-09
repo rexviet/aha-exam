@@ -8,7 +8,6 @@ import {
   Inject,
   Request,
   Response,
-  Session,
   UseGuards,
 } from '@nestjs/common';
 import {
@@ -19,6 +18,7 @@ import {
 } from '@nestjs/swagger';
 import { ExchangeTokenSymbol } from './exchange-token.provider';
 import { ExchangeTokenService } from './exchange-token.service';
+import {Request as Req, Response as Res} from 'express';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -36,11 +36,9 @@ export class ExchangeSessionController {
   @Get('/exchange-session')
   @UseGuards(BearerAuthGuard)
   public async exchangeSession(
-    @Session() session: Record<string, any>,
-    @Request() req,
-    @Response() res,
+    @Request() req: Req,
+    @Response() res: Res,
   ) {
-    console.log('req.user:', req.user);
     const params = new ExchangeSessionParams(
       req.user,
       req.method,

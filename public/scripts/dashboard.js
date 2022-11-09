@@ -11,8 +11,7 @@ $(document).ready(async () => {
     console.log('AAAAA storagedUser', storagedUser);
     if (storagedUser) {
         const user = JSON.parse(storagedUser);
-        $('h5.name').text(user.displayName);
-        $('p.email').text(user.email);
+        $('span.name').text(user.displayName);
         $('img').attr('src', user.photoURL);
         $('button.btn-edit-profile').on('click', () => {
             location.href = 'profile.html';

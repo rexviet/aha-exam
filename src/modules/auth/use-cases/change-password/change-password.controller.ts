@@ -16,6 +16,7 @@ import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { ChangePasswordDto } from './change-password.dto';
 import { ChangePasswordSymbol } from './change-password.provider';
 import { ChangePasswordService } from './change-password.service';
+import {Response as Res} from 'express';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -34,7 +35,7 @@ export class ChangePasswordController {
   public async changePassword(
     @Body() body: ChangePasswordDto,
     @CurrentUser() currentUser: ICurrentUser,
-    @Response() res,
+    @Response() res: Res,
   ) {
     const params = new ChangePasswordParams(
       currentUser.uid,

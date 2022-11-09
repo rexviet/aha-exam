@@ -25,7 +25,7 @@ export class ChangePasswordService {
 
     if (user.provider === 'password') {
       const verified = await this.repository.verifyPassword(
-        user.email,
+        user.email as string,
         params.currentPassword,
       );
       if (!verified) {

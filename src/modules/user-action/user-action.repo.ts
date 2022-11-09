@@ -1,19 +1,22 @@
 import { Outbox } from '@modules/outbox/domain/outbox.entity';
-import { User } from '@modules/user/domain/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { InjectDataSource, InjectRepository } from '@nestjs/typeorm';
+import { DataSource, QueryRunner, Repository } from 'typeorm';
 import { CreateUserActionPayload } from './domain/payload/create-user-action.payload';
 import { UserAction } from './domain/user-action.entity';
 import { IUserActionModel } from './domain/user-action.model';
 
 export interface IUserActionRepository {
   createUserAction(payload: CreateUserActionPayload): Promise<IUserActionModel>;
+  countActiveSessionsToday(): Promise<number>;
+  countAvgSessionsInDaysRange(days: number): Promise<number>;
 }
 
 export class UserActionRepositoryImpl implements IUserActionRepository {
   constructor(
     @InjectRepository(UserAction)
     private readonly repository: Repository<UserAction>,
+    @InjectDataSource()
+    private readonly dataSource: DataSource,
   ) {}
 
   public async createUserAction(
@@ -26,13 +29,6 @@ export class UserActionRepositoryImpl implements IUserActionRepository {
       userAction.path = payload.path;
       userAction.timestamp = payload.timestamp;
       userAction = await entityManager.save(userAction);
-
-      // await entityManager
-      //   .createQueryBuilder()
-      //   .update(User)
-      //   .set({ last_session_timestamp: userAction.timestamp })
-      //   .where('uid = :uid', { uid: userAction.uid })
-      //   .execute();
 
       await entityManager
         .createQueryBuilder()
@@ -47,5 +43,32 @@ export class UserActionRepositoryImpl implements IUserActionRepository {
         .execute();
       return userAction;
     });
+  }
+
+  public async countActiveSessionsToday(): Promise<number> {
+    return this.repository.createQueryBuilder()
+      .select('COUNT(DISTINCT(uid))')
+      .where(`TO_TIMESTAMP("timestamp"/1000) BETWEEN current_date  + time '00:00:00' AND current_date  + time '23:59:59'`)
+      .getCount();
+  }
+
+  public async countAvgSessionsInDaysRange(days: number): Promise<number> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    const queryRs = await queryRunner.query(
+      `
+        with dt_day as (
+          select *, TO_CHAR(TO_TIMESTAMP("timestamp" / 1000), 'YYYY/MM/DD') as "day"
+          from user_actions
+          where TO_TIMESTAMP("timestamp"/1000) >= current_date at time zone 'UTC' - interval '${days} days'
+        ), dt_group as (
+          select "day", count(distinct(uid))
+          from dt_day
+          GROUP BY "day"
+        )
+        select avg("count") from dt_group
+      `,
+    );
+    await queryRunner.release();
+    return Number(queryRs[0].avg);
   }
 }

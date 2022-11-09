@@ -17,8 +17,8 @@ export class UpdateUserProfileService {
 
     const payload = new UpdateUserProfilePayload(
       user.uid,
-      params.name || user.displayName,
-      params.last_session_timestamp || user.last_session_timestamp,
+      (params.name || user.displayName) as string,
+      (params.last_session_timestamp || user.last_session_timestamp) as number,
       params.increaseNoLoggedIn,
     );
     return this.repository.updateUserProfile(payload);
