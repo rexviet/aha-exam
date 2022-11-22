@@ -46,3 +46,4 @@ test.xlsx
 infras/backend/
 cloud-functions/functions/lib/
 db/
+service-account.json
