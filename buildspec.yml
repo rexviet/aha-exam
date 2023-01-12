@@ -8,7 +8,8 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm i
-      - 'aws s3 sync s3://aha-secrets'
+      - 'aws s3 cp s3://aha-secrets/service-account.json ./src/modules/auth/.'
+      - ls -la src/modules/auth
   build:
     commands:
       - echo Build started on `date`
