@@ -8,6 +8,7 @@ phases:
     commands:
       - echo Installing source NPM dependencies...
       - npm i
+      - 'aws s3 sync s3://aha-secrets'
   build:
     commands:
       - echo Build started on `date`
