@@ -7,8 +7,8 @@ phases:
   pre_build:
     commands:
       - echo Installing source NPM dependencies...
-      - npm i
       - 'aws s3 cp s3://aha-secrets/service-account.json ./src/modules/auth/.'
+      - npm i
       - ls -la src/modules/auth
   build:
     commands:
